@@ -18,10 +18,9 @@
     "url": "https://github.com/discore/image-resize-proxy/issues"
   },
   "dependencies": {
-    "gm": "~1.9.0",
+    "gm": "~1.10.0",
     "knox": "~0.8.0",
     "mime": "~1.2.9",
-    "through": "~2.3.4",
     "debug": "*"
   },
   "devDependencies": {

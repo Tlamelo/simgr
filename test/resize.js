@@ -5,23 +5,30 @@ var service = require('../')()
 describe('Resize', function () {
   describe('JPG', function () {
     var file = path.join(__dirname, 'originalSideways.jpg')
-    var readStream = service.resizeImage(fs.createReadStream(file), null, 'a', 'jpg')
     var identity
 
     it('should work', function (done) {
-      readStream.on('error', done)
-      service.identify(readStream, function (err, _identity) {
-        if (err) throw err
+      service.resizeImage(fs.createReadStream(file), null, {
+        slug: 'a',
+        format: 'jpg'
+      }, function (err, location) {
+        if (err)
+          throw err
 
-        identity = _identity
-        done()
+        service.identify(location, function (err, _identity) {
+          if (err)
+            throw err
+
+          identity = _identity
+          done()
+        })
       })
     })
 
     it('should be the correct size', function () {
       var size = identity.size
-      size.width.should.be.below(121)
-      size.height.should.be.below(121)
+      size.width.should.equal(120)
+      size.height.should.equal(40)
     })
 
     it('should be progressive', function () {
@@ -29,11 +36,19 @@ describe('Resize', function () {
     })
 
     it('should have less than 85 quality', function () {
-      parseInt(identity.Quality || identity['JPEG-Quality'], 10).should.be.below(86)
+      parseInt(identity.Quality || identity['JPEG-Quality'], 10).should.equal(85)
     })
 
     it('should auto orient', function () {
       identity.Orientation.should.equal('Undefined')
     })
+  })
+
+  describe('PNG', function () {
+
+  })
+
+  describe('GIF', function () {
+
   })
 })
