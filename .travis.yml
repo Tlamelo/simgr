@@ -1,12 +1,9 @@
---- 
-before_install: 
-- sudo apt-get update
-- sudo apt-get upgrade
+---
 language: node_js
-node_js: 
+node_js:
 - "0.10"
-env: 
-  global: 
+env:
+  global:
   - secure: |-
       gG0Yjsl7/NONdftww7QGNli7D/BvJ78hXsfBe7iX9xpwi8GHDc0J4Vz+rBQu
       I45xNQUBEClv4K99aT2c/glgqZ2KPzPzQUBHmDXJ89YzwURVJODeGakO5lOV
