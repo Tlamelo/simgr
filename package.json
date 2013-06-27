@@ -1,6 +1,6 @@
 {
-  "name": "image-resize-s3",
-  "description": "Upload an image to S3 then download variants via HTTP",
+  "name": "simgr",
+  "description": "Image resizing proxy using S3 as a backend",
   "version": "0.0.1",
   "author": {
     "name": "Jonathan Ong",
@@ -11,16 +11,15 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/discore/image-resize-proxy.git"
+    "url": "https://github.com/funraiseme/simgr.git"
   },
   "bugs": {
     "mail": "me@jongleberry.com",
-    "url": "https://github.com/discore/image-resize-proxy/issues"
+    "url": "https://github.com/funraiseme/simgr/issues"
   },
   "dependencies": {
     "gm": "~1.10.0",
     "knox": "~0.8.0",
-    "mime": "~1.2.9",
     "debug": "*"
   },
   "devDependencies": {
