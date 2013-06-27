@@ -1,6 +1,6 @@
 var path = require('path')
 var fs = require('fs')
-var service = require('../')()
+var simgr = require('../')()
 
 describe('Resize', function () {
   describe('JPG', function () {
@@ -8,14 +8,14 @@ describe('Resize', function () {
     var identity
 
     it('should work', function (done) {
-      service.resizeImage(fs.createReadStream(file), null, {
+      simgr.resizeImage(fs.createReadStream(file), null, {
         slug: 'a',
         format: 'jpg'
       }, function (err, location) {
         if (err)
           throw err
 
-        service.identify(location, function (err, _identity) {
+        simgr.identify(location, function (err, _identity) {
           if (err)
             throw err
 
@@ -49,14 +49,14 @@ describe('Resize', function () {
     var identity
 
     it('should work', function (done) {
-      service.resizeImage(fs.createReadStream(file), null, {
+      simgr.resizeImage(fs.createReadStream(file), null, {
         slug: 'a',
         format: 'png'
       }, function (err, location) {
         if (err)
           throw err
 
-        service.identify(location, function (err, _identity) {
+        simgr.identify(location, function (err, _identity) {
           if (err)
             throw err
 
@@ -80,7 +80,7 @@ describe('Resize', function () {
   describe('GIF', function () {
     it('should throw', function () {
       ;(function () {
-        service.resizeImage(fs.createReadStream(path.join(__dirname, 'crazy-laugh.gif')), null, {
+        simgr.resizeImage(fs.createReadStream(path.join(__dirname, 'crazy-laugh.gif')), null, {
           slug: 'a',
           format: 'gif'
         }, function (err) {
@@ -96,14 +96,14 @@ describe('Resize', function () {
     var identity
 
     it('should work', function (done) {
-      service.resizeImage(fs.createReadStream(file), null, {
+      simgr.resizeImage(fs.createReadStream(file), null, {
         slug: 'a',
         format: 'jpg'
       }, function (err, location) {
         if (err)
           throw err
 
-        service.identify(location, function (err, _identity) {
+        simgr.identify(location, function (err, _identity) {
           if (err)
             throw err
 

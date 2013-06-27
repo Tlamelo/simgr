@@ -1,13 +1,13 @@
 var path = require('path')
 var fs = require('fs')
-var service = require('../')()
+var simgr = require('../')()
 
 describe('Put', function () {
   describe('JPG', function () {
     var file = path.join(__dirname, 'originalSideways.jpg')
 
     it('should work', function (done) {
-      service.identifyImage(fs.createReadStream(file), {
+      simgr.identifyImage(fs.createReadStream(file), {
         name: 'originalSideways'
       }, function (err, metadata) {
         if (err)
@@ -17,7 +17,7 @@ describe('Put', function () {
         metadata.stats.should.be.ok
         metadata.identity.should.be.ok
 
-        service.uploadImage(metadata, function (err) {
+        simgr.uploadImage(metadata, function (err) {
           if (err)
             throw err
 
@@ -33,7 +33,7 @@ describe('Put', function () {
     var file = path.join(__dirname, 'taylor-swift.png')
 
     it('should work', function (done) {
-      service.identifyImage(fs.createReadStream(file), {
+      simgr.identifyImage(fs.createReadStream(file), {
         name: 'taylor-swift'
       }, function (err, metadata) {
         if (err)
@@ -43,7 +43,7 @@ describe('Put', function () {
         metadata.stats.should.be.ok
         metadata.identity.should.be.ok
 
-        service.uploadImage(metadata, function (err) {
+        simgr.uploadImage(metadata, function (err) {
           if (err)
             throw err
 
@@ -59,7 +59,7 @@ describe('Put', function () {
     var file = path.join(__dirname, 'crazy-laugh.gif')
 
     it('should throw', function (done) {
-      service.identifyImage(fs.createReadStream(file), null, function (err) {
+      simgr.identifyImage(fs.createReadStream(file), null, function (err) {
         if (!err)
           throw new Error()
 

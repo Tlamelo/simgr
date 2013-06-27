@@ -24,11 +24,7 @@
   },
   "devDependencies": {
     "mocha": "*",
-    "should": "*",
-    "express": "*"
-  },
-  "peerDependencies": {
-    "express": "*"
+    "should": "*"
   },
   "scripts": {
     "test": "make test;"

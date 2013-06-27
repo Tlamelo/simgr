@@ -1,6 +1,6 @@
 var path = require('path')
 var fs = require('fs')
-var service = require('../')()
+var simgr = require('../')()
 
 describe('Get', function () {
   describe('JPG', function () {
@@ -8,23 +8,23 @@ describe('Get', function () {
     var identity
 
     it('should work', function (done) {
-      service.identifyImage(fs.createReadStream(file), {
+      simgr.identifyImage(fs.createReadStream(file), {
         name: 'originalSideways'
       }, function (err, metadata) {
         if (err)
           throw err
 
-        service.uploadImage(metadata, function (err) {
+        simgr.uploadImage(metadata, function (err) {
           if (err)
             throw err
 
-          service.getVariant(metadata, {
+          simgr.getVariant(metadata, {
             slug: 'a'
           }, function (err, location) {
             if (err)
               throw err
 
-            service.identify(location, function (err, _identity) {
+            simgr.identify(location, function (err, _identity) {
               if (err)
                 throw err
 
@@ -62,7 +62,7 @@ describe('Get', function () {
     var identity
 
     it('should work', function (done) {
-      service.identifyImage(fs.createReadStream(file), {
+      simgr.identifyImage(fs.createReadStream(file), {
         name: 'taylor-swift'
       }, function (err, _metadata) {
         if (err)
@@ -70,17 +70,17 @@ describe('Get', function () {
 
         metadata = _metadata
 
-        service.uploadImage(metadata, function (err) {
+        simgr.uploadImage(metadata, function (err) {
           if (err)
             throw err
 
-          service.getVariant(metadata, {
+          simgr.getVariant(metadata, {
             slug: 'a'
           }, function (err, location) {
             if (err)
               throw err
 
-            service.identify(location, function (err, _identity) {
+            simgr.identify(location, function (err, _identity) {
               if (err)
                 throw err
 
@@ -107,14 +107,14 @@ describe('Get', function () {
     var identity
 
     it('should work', function (done) {
-      service.getVariant(metadata, {
+      simgr.getVariant(metadata, {
         slug: 'a',
         format: 'jpg'
       }, function (err, location) {
         if (err)
           throw err
 
-        service.identify(location, function (err, _identity) {
+        simgr.identify(location, function (err, _identity) {
           if (err)
             throw err
 
