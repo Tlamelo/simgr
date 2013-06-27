@@ -2,25 +2,36 @@ var path = require('path')
 var fs = require('fs')
 var service = require('../')()
 
-describe('Resize', function () {
+describe('Get', function () {
   describe('JPG', function () {
     var file = path.join(__dirname, 'originalSideways.jpg')
     var identity
 
     it('should work', function (done) {
-      service.resizeImage(fs.createReadStream(file), null, {
-        slug: 'a',
-        format: 'jpg'
-      }, function (err, location) {
+      service.identifyImage(fs.createReadStream(file), {
+        name: 'originalSideways'
+      }, function (err, metadata) {
         if (err)
           throw err
 
-        service.identify(location, function (err, _identity) {
+        service.uploadImage(metadata, function (err) {
           if (err)
             throw err
 
-          identity = _identity
-          done()
+          service.getVariant(metadata, {
+            slug: 'a'
+          }, function (err, location) {
+            if (err)
+              throw err
+
+            service.identify(location, function (err, _identity) {
+              if (err)
+                throw err
+
+              identity = _identity
+              done()
+            })
+          })
         })
       })
     })
@@ -44,24 +55,39 @@ describe('Resize', function () {
     })
   })
 
+  var metadata
+
   describe('PNG', function () {
     var file = path.join(__dirname, 'taylor-swift.png')
     var identity
 
     it('should work', function (done) {
-      service.resizeImage(fs.createReadStream(file), null, {
-        slug: 'a',
-        format: 'png'
-      }, function (err, location) {
+      service.identifyImage(fs.createReadStream(file), {
+        name: 'taylor-swift'
+      }, function (err, _metadata) {
         if (err)
           throw err
 
-        service.identify(location, function (err, _identity) {
+        metadata = _metadata
+
+        service.uploadImage(metadata, function (err) {
           if (err)
             throw err
 
-          identity = _identity
-          done()
+          service.getVariant(metadata, {
+            slug: 'a'
+          }, function (err, location) {
+            if (err)
+              throw err
+
+            service.identify(location, function (err, _identity) {
+              if (err)
+                throw err
+
+              identity = _identity
+              done()
+            })
+          })
         })
       })
     })
@@ -77,26 +103,11 @@ describe('Resize', function () {
     })
   })
 
-  describe('GIF', function () {
-    it('should throw', function () {
-      ;(function () {
-        service.resizeImage(fs.createReadStream(path.join(__dirname, 'crazy-laugh.gif')), null, {
-          slug: 'a',
-          format: 'gif'
-        }, function (err) {
-          if (err)
-            throw err
-        })
-      }).should.throw()
-    })
-  })
-
-  describe('PNG to JPG', function () {
-    var file = path.join(__dirname, 'taylor-swift.png')
+  describe('PNG to JPEG', function () {
     var identity
 
     it('should work', function (done) {
-      service.resizeImage(fs.createReadStream(file), null, {
+      service.getVariant(metadata, {
         slug: 'a',
         format: 'jpg'
       }, function (err, location) {
