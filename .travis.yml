@@ -1,0 +1,21 @@
+--- 
+before_install: 
+- sudo apt-get update
+- sudo apt-get upgrade
+language: node_js
+node_js: 
+- "0.10"
+env: 
+  global: 
+  - secure: |-
+      gG0Yjsl7/NONdftww7QGNli7D/BvJ78hXsfBe7iX9xpwi8GHDc0J4Vz+rBQu
+      I45xNQUBEClv4K99aT2c/glgqZ2KPzPzQUBHmDXJ89YzwURVJODeGakO5lOV
+      9rklqtbPUD9jQNLrx9DXyBZul6T+cskgn009k7XgQc7KVTSZ6E8=
+  - secure: |-
+      ezGcMJydfxzBsxgp4BtrzUt7Xe6rE1BOfkQqHITHiblrlKWpzNbP/qJ7JVPR
+      TKt3cXpdavsIE6lgfOro4BRDei4cVSkVu7LMfskIAc7+sxk8njRKtGkVnuka
+      2km3mym7GXfPDVW7fnSl92aoOpDDUqpmJ91+DV3B284qjrql2DM=
+  - secure: |-
+      lFjH6vmzcX+5ulRfG50kaP30Q099nUvp26iKL/ALmd/yuiJnK9UL3s3qCgXt
+      Z2lsYZ8jHZ7ozIsOr+R/ZFjBAUD5sbkfe4S22M7QpgOi9709oumxxcaUnFlo
+      aSXEhpwXwxgq5v1J554RtXp5JMgJFdO6DUibmtsqAXi1GBFfHiQ=
