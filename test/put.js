@@ -16,6 +16,7 @@ describe('Put', function () {
         metadata.path.should.be.ok
         metadata.stats.should.be.ok
         metadata.identity.should.be.ok
+        metadata.format.should.equal('jpg')
 
         simgr.uploadImage(metadata, function (err) {
           if (err)
@@ -42,6 +43,7 @@ describe('Put', function () {
         metadata.path.should.be.ok
         metadata.stats.should.be.ok
         metadata.identity.should.be.ok
+        metadata.format.should.equal('png')
 
         simgr.uploadImage(metadata, function (err) {
           if (err)
