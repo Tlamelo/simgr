@@ -122,6 +122,20 @@ describe('JPEG', function () {
       metadata['a.png'].Orientation.should.equal('Undefined')
     })
   })
+
+  describe('GET GIF', function () {
+    it('should error', function (done) {
+      simgr.getVariant(metadata, {
+        slug: 'a',
+        format: 'gif'
+      }, function (err) {
+        if (!err || err.key !== 'unsupportedOutputFormat')
+          throw new Error()
+
+        done()
+      })
+    })
+  })
 })
 
 describe('PNG', function () {
@@ -217,6 +231,20 @@ describe('PNG', function () {
     it('should have 85 quality', function () {
       var identity = metadata['a.jpg']
       parseInt(identity.Quality || identity['JPEG-Quality'] || 0, 10).should.be.below(86)
+    })
+  })
+
+  describe('GET GIF', function () {
+    it('should error', function (done) {
+      simgr.getVariant(metadata, {
+        slug: 'a',
+        format: 'gif'
+      }, function (err) {
+        if (!err || err.key !== 'unsupportedOutputFormat')
+          throw new Error()
+
+        done()
+      })
     })
   })
 })
