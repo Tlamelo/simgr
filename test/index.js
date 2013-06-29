@@ -43,16 +43,38 @@ describe('JPEG', function () {
   })
 
   describe('GET JPEG', function () {
+    var signature
+
     it('should create a variant', function (done) {
-      simgr.identify(simgr.getVariant(metadata, {
+      var stream = simgr.getVariant(metadata, {
         slug: 'a'
-      }), function (err, identity) {
+      })
+
+      simgr.identify(stream, function (err, identity) {
         if (err)
-            throw err
+          throw err
 
         metadata['a.jpg'] = identity
-        done()
+
+        done.identify = true
+        if (done.signature)
+          done()
       })
+
+      simgr.getSignature(stream, function (err, _signature) {
+        if (err)
+          throw err
+
+        signature = _signature
+
+        done.signature = true
+        if (done.identify)
+          done()
+      })
+    })
+
+    it('should get the signature', function () {
+      metadata['a.jpg'].Properties.signature.should.equal(signature)
     })
 
     it('should be a JPEG', function () {
@@ -149,15 +171,35 @@ describe('PNG', function () {
 
   describe('GET PNG', function () {
     it('should create a variant', function (done) {
-      simgr.identify(simgr.getVariant(metadata, {
+      var stream = simgr.getVariant(metadata, {
         slug: 'a'
-      }), function (err, identity) {
+      })
+
+      simgr.identify(stream, function (err, identity) {
         if (err)
           throw err
 
         metadata['a.png'] = identity
-        done()
+
+        done.identify = true
+        if (done.signature)
+          done()
       })
+
+      simgr.getSignature(stream, function (err, _signature) {
+        if (err)
+          throw err
+
+        signature = _signature
+
+        done.signature = true
+        if (done.identify)
+          done()
+      })
+    })
+
+    it('should get the signature', function () {
+      metadata['a.png'].Properties.signature.should.equal(signature)
     })
 
     it('should be a PNG', function () {
