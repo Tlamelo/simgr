@@ -31,7 +31,6 @@ describe('JPEG', function () {
           throw err
 
         metadata.path.should.be.ok
-        metadata.stats.should.be.ok
         metadata.identity.should.be.ok
         metadata.identity.format.should.equal('JPEG')
         done()
@@ -45,19 +44,14 @@ describe('JPEG', function () {
 
   describe('GET JPEG', function () {
     it('should create a variant', function (done) {
-      simgr.getVariant(metadata, {
+      simgr.identify(simgr.getVariant(metadata, {
         slug: 'a'
-      }, function (err, location) {
+      }), function (err, identity) {
         if (err)
-          throw err
-
-        simgr.identify(location, function (err, identity) {
-          if (err)
             throw err
 
-          metadata['a.jpg'] = identity
-          done()
-        })
+        metadata['a.jpg'] = identity
+        done()
       })
     })
 
@@ -87,20 +81,15 @@ describe('JPEG', function () {
 
   describe('GET PNG', function () {
     it('should create a variant', function (done) {
-      simgr.getVariant(metadata, {
+      simgr.identify(simgr.getVariant(metadata, {
         slug: 'a',
         format: 'png'
-      }, function (err, location) {
+      }), function (err, identity) {
         if (err)
           throw err
 
-        simgr.identify(location, function (err, identity) {
-          if (err)
-            throw err
-
-          metadata['a.png'] = identity
-          done()
-        })
+        metadata['a.png'] = identity
+        done()
       })
     })
 
@@ -128,10 +117,7 @@ describe('JPEG', function () {
       simgr.getVariant(metadata, {
         slug: 'a',
         format: 'gif'
-      }, function (err) {
-        if (!err || err.key !== 'unsupportedOutputFormat')
-          throw new Error()
-
+      }).on('error', function () {
         done()
       })
     })
@@ -150,7 +136,6 @@ describe('PNG', function () {
           throw err
 
         metadata.path.should.be.ok
-        metadata.stats.should.be.ok
         metadata.identity.should.be.ok
         metadata.identity.format.should.equal('PNG')
         done()
@@ -164,19 +149,14 @@ describe('PNG', function () {
 
   describe('GET PNG', function () {
     it('should create a variant', function (done) {
-      simgr.getVariant(metadata, {
+      simgr.identify(simgr.getVariant(metadata, {
         slug: 'a'
-      }, function (err, location) {
+      }), function (err, identity) {
         if (err)
           throw err
 
-        simgr.identify(location, function (err, identity) {
-          if (err)
-            throw err
-
-          metadata['a.png'] = identity
-          done()
-        })
+        metadata['a.png'] = identity
+        done()
       })
     })
 
@@ -197,20 +177,15 @@ describe('PNG', function () {
 
   describe('GET JPEG', function () {
     it('should create a variant', function (done) {
-      simgr.getVariant(metadata, {
+      simgr.identify(simgr.getVariant(metadata, {
         slug: 'a',
         format: 'jpg'
-      }, function (err, location) {
+      }), function (err, identity) {
         if (err)
           throw err
 
-        simgr.identify(location, function (err, identity) {
-          if (err)
-            throw err
-
-          metadata['a.jpg'] = identity
-          done()
-        })
+        metadata['a.jpg'] = identity
+        done()
       })
     })
 
@@ -239,10 +214,7 @@ describe('PNG', function () {
       simgr.getVariant(metadata, {
         slug: 'a',
         format: 'gif'
-      }, function (err) {
-        if (!err || err.key !== 'unsupportedOutputFormat')
-          throw new Error()
-
+      }).on('error', function () {
         done()
       })
     })
