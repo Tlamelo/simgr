@@ -230,14 +230,30 @@ describe('PNG', function () {
 
   describe('GET JPEG', function () {
     it('should create a variant', function (done) {
-      simgr.identify(simgr.getVariant(metadata, {
+      simgr.getVariant(metadata, {
         slug: 'a',
         format: 'jpg'
-      }), function (err, identity) {
+      }, function (err, filename) {
         if (err)
           throw err
 
-        metadata['a.jpg'] = identity
+        simgr.identify(filename, function (err, identity) {
+          if (err)
+            throw err
+
+          metadata['a.jpg'] = identity
+          metadata['a.jpg.filename'] = filename
+          done()
+        })
+      })
+    })
+
+    it('should get signature', function (done) {
+      simgr.getSignature(metadata['a.jpg.filename'], function (err, signature) {
+        if (err)
+          throw err
+
+        metadata['a.jpg'].Properties.signature.should.equal(signature)
         done()
       })
     })
