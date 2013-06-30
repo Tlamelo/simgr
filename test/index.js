@@ -40,6 +40,17 @@ describe('JPEG', function () {
     it('should upload', function (done) {
       simgr.uploadImage(metadata, done)
     })
+
+    it('should delete the uploaded file', function (done) {
+      setTimeout(function () {
+        require('fs').stat(metadata.path, function (err) {
+          if (!err)
+            throw new Error()
+
+          done()
+        })
+      }, 10)
+    })
   })
 
   describe('GET JPEG', function () {
