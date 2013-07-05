@@ -168,6 +168,20 @@ describe('JPEG', function () {
       })
     })
   })
+
+  describe('GET WEBP', function () {
+    it('should work', function (done) {
+      simgr.getVariant(metadata, {
+        slug: 'a',
+        format: 'webp'
+      }, function (err, location) {
+        if (err)
+          return done(err)
+
+        fs.stat(location, done)
+      })
+    })
+  })
 })
 
 describe('PNG', function () {
@@ -304,6 +318,20 @@ describe('PNG', function () {
           throw new Error()
 
         done()
+      })
+    })
+  })
+
+  describe('GET WEBP', function () {
+    it('should work', function (done) {
+      simgr.getVariant(metadata, {
+        slug: 'a',
+        format: 'webp'
+      }, function (err, location) {
+        if (err)
+          return done(err)
+
+        fs.stat(location, done)
       })
     })
   })
