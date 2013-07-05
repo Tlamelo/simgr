@@ -60,7 +60,7 @@ describe('JPEG', function () {
 
     it('should create a variant', function (done) {
       simgr.getVariant(metadata, {
-        slug: 'l'
+        slug: 'a'
       }, function (err, filename) {
         if (err)
           return done(err)
@@ -120,7 +120,7 @@ describe('JPEG', function () {
   describe('GET PNG', function () {
     it('should create a variant', function (done) {
       simgr.getVariant(metadata, {
-        slug: 'l',
+        slug: 'a',
         format: 'png'
       }, function (err, filename) {
         if (err)
@@ -158,7 +158,7 @@ describe('JPEG', function () {
   describe('GET GIF', function () {
     it('should error', function (done) {
       simgr.getVariant(metadata, {
-        slug: 'l',
+        slug: 'a',
         format: 'gif'
       }, function (err) {
         if (!err)
@@ -172,7 +172,7 @@ describe('JPEG', function () {
   describe('GET WEBP', function () {
     it('should work', function (done) {
       simgr.getVariant(metadata, {
-        slug: 'l',
+        slug: 'a',
         format: 'webp'
       }, function (err, location) {
         if (err)
@@ -210,7 +210,7 @@ describe('PNG', function () {
   describe('GET PNG', function () {
     it('should create a variant', function (done) {
       simgr.getVariant(metadata, {
-        slug: 'l'
+        slug: 'a'
       }, function (err, filename) {
         if (err)
           return done(err)
@@ -261,7 +261,7 @@ describe('PNG', function () {
   describe('GET JPEG', function () {
     it('should create a variant', function (done) {
       simgr.getVariant(metadata, {
-        slug: 'l',
+        slug: 'a',
         format: 'jpg'
       }, function (err, filename) {
         if (err)
@@ -311,7 +311,7 @@ describe('PNG', function () {
   describe('GET GIF', function () {
     it('should error', function (done) {
       simgr.getVariant(metadata, {
-        slug: 'l',
+        slug: 'a',
         format: 'gif'
       }, function (err) {
         if (!err)
@@ -325,7 +325,7 @@ describe('PNG', function () {
   describe('GET WEBP', function () {
     it('should work', function (done) {
       simgr.getVariant(metadata, {
-        slug: 'l',
+        slug: 'a',
         format: 'webp'
       }, function (err, location) {
         if (err)
