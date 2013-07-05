@@ -1,7 +1,7 @@
 {
   "name": "simgr",
   "description": "Image resizing proxy using S3 as a backend",
-  "version": "0.2.4",
+  "version": "0.2.5",
   "author": {
     "name": "Jonathan Ong",
     "email": "me@jongleberry.com",
