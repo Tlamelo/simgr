@@ -2,17 +2,18 @@
 language: node_js
 node_js:
 - "0.10"
+- "0.8"
 env:
   global:
   - secure: |-
-      gG0Yjsl7/NONdftww7QGNli7D/BvJ78hXsfBe7iX9xpwi8GHDc0J4Vz+rBQu
-      I45xNQUBEClv4K99aT2c/glgqZ2KPzPzQUBHmDXJ89YzwURVJODeGakO5lOV
-      9rklqtbPUD9jQNLrx9DXyBZul6T+cskgn009k7XgQc7KVTSZ6E8=
+      GjqDtVn9DizvhZ/n5jKd8iq5rl4A2tIAax9usVG0UY6ch0aO132/GgxC41cO
+      UYlJGsSq6lkW3Fa1LaPd9lfjFbY1q35U6jP6PoP838TKXFJofnxs8lVcQ6lb
+      qbCfcR25jlpy5aqIhuW+Z+0KqvH78+O8G+iNMLjRPJhEDiOSZ0s=
   - secure: |-
-      ezGcMJydfxzBsxgp4BtrzUt7Xe6rE1BOfkQqHITHiblrlKWpzNbP/qJ7JVPR
-      TKt3cXpdavsIE6lgfOro4BRDei4cVSkVu7LMfskIAc7+sxk8njRKtGkVnuka
-      2km3mym7GXfPDVW7fnSl92aoOpDDUqpmJ91+DV3B284qjrql2DM=
+      cmO0PbLwKrU4Mqb4D/0WALZgiXnHIzauDVKkYxo+CnamPry9cTl//8YbhxIu
+      edwjjURNN1sjkJyxCIfTzTaEtCRoE4uuO5MI4TrKzUW80HaBI8rTHEpqUfXE
+      cDjz1RgvfY264+l30f7rfrOg6hpm7FKKdI1wYh+IJSS7jUGnq/Q=
   - secure: |-
-      lFjH6vmzcX+5ulRfG50kaP30Q099nUvp26iKL/ALmd/yuiJnK9UL3s3qCgXt
-      Z2lsYZ8jHZ7ozIsOr+R/ZFjBAUD5sbkfe4S22M7QpgOi9709oumxxcaUnFlo
-      aSXEhpwXwxgq5v1J554RtXp5JMgJFdO6DUibmtsqAXi1GBFfHiQ=
+      djBy+kLt7s7MDKOWgWboc49bC157zTtH0wzzf7j0xgwljh6Ay5q9r3bEzLyA
+      67jKJSDA72+Il1DPUPVe28rbd2mn4TJ2dvsFP1uLeUFnX3IPgKeW1/8MooB2
+      JtA84R2+CKA/n+UJn+ZPlD7+hsMabt/NlDY1rYj25n7hFIX6+do=

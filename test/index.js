@@ -1,5 +1,8 @@
 var path = require('path')
 var fs = require('fs')
+var gm = require('gm').subClass({
+  imageMagick: true
+})
 var simgr = require('../')()
 
 var gif = path.join(__dirname, 'crazy-laugh.gif')
@@ -8,8 +11,8 @@ var png = path.join(__dirname, 'taylor-swift.png')
 
 describe('GIF', function () {
   describe('PUT', function () {
-    it('should throw', function (done) {
-      simgr.identifyImage(fs.createReadStream(gif), {}, function (err) {
+    it('should not validate', function (done) {
+      simgr.validateImage(gif, function (err) {
         if (!err)
           throw new Error()
 
@@ -21,37 +24,29 @@ describe('GIF', function () {
 
 describe('JPEG', function () {
   var metadata = {
-    name: 'originalSideways'
+    name: 'originalSideways',
+    path: jpg
   }
 
   describe('PUT', function () {
+    it('should validate', function (done) {
+      simgr.validateImage(metadata, done)
+    })
+
     it('should identify', function (done) {
-      simgr.identifyImage(fs.createReadStream(jpg), metadata, function (err) {
+      simgr.identifyImage(metadata, function (err) {
         if (err)
           throw err
 
-        metadata.path.should.be.ok
         metadata.identity.should.be.ok
         metadata.identity.format.should.equal('JPEG')
+        metadata.format.should.equal('jpg')
         done()
       })
     })
 
     it('should upload', function (done) {
       simgr.uploadImage(metadata, done)
-    })
-
-    it('should delete the uploaded file', function (done) {
-      setTimeout(function () {
-        metadata.path.should.be.ok
-
-        fs.stat(metadata.path, function (err) {
-          if (!err)
-            throw new Error()
-
-          done()
-        })
-      }, 10)
     })
   })
 
@@ -63,9 +58,9 @@ describe('JPEG', function () {
         slug: 'a'
       }, function (err, filename) {
         if (err)
-          return done(err)
+          throw err
 
-        simgr.identify(filename, function (err, identity) {
+        gm(filename).identify(function (err, identity) {
           if (err)
             throw err
 
@@ -107,9 +102,8 @@ describe('JPEG', function () {
       metadata['a.jpg'].Interlace.should.not.equal('None')
     })
 
-    it('should have 85 quality', function () {
-      var identity = metadata['a.jpg']
-      parseInt(identity.Quality || identity['JPEG-Quality'] || 0, 10).should.be.below(86)
+    it('should have 80 quality', function () {
+      parseInt(metadata['a.jpg'].Quality, 10).should.be.below(81)
     })
 
     it('should auto orient', function () {
@@ -124,9 +118,9 @@ describe('JPEG', function () {
         format: 'png'
       }, function (err, filename) {
         if (err)
-          return done(err)
+          throw err
 
-        simgr.identify(filename, function (err, identity) {
+        gm(filename).identify(function (err, identity) {
           if (err)
             throw err
 
@@ -176,7 +170,7 @@ describe('JPEG', function () {
         format: 'webp'
       }, function (err, location) {
         if (err)
-          return done(err)
+          throw err
 
         fs.stat(location, done)
       })
@@ -186,18 +180,23 @@ describe('JPEG', function () {
 
 describe('PNG', function () {
   var metadata = {
-    name: 'taylor-swift'
+    name: 'taylor-swift',
+    path: png
   }
 
   describe('PUT', function () {
+    it('should validate', function (done) {
+      simgr.validateImage(metadata, done)
+    })
+
     it('should identify', function (done) {
-      simgr.identifyImage(fs.createReadStream(png), metadata, function (err) {
+      simgr.identifyImage(metadata, function (err) {
         if (err)
           throw err
 
-        metadata.path.should.be.ok
         metadata.identity.should.be.ok
         metadata.identity.format.should.equal('PNG')
+        metadata.format.should.equal('png')
         done()
       })
     })
@@ -208,14 +207,16 @@ describe('PNG', function () {
   })
 
   describe('GET PNG', function () {
+    var signature
+
     it('should create a variant', function (done) {
       simgr.getVariant(metadata, {
         slug: 'a'
       }, function (err, filename) {
         if (err)
-          return done(err)
+          throw err
 
-        simgr.identify(filename, function (err, identity) {
+        gm(filename).identify(function (err, identity) {
           if (err)
             throw err
 
@@ -267,7 +268,7 @@ describe('PNG', function () {
         if (err)
           throw err
 
-        simgr.identify(filename, function (err, identity) {
+        gm(filename).identify(function (err, identity) {
           if (err)
             throw err
 
@@ -302,9 +303,8 @@ describe('PNG', function () {
       metadata['a.jpg'].Interlace.should.not.equal('None')
     })
 
-    it('should have 85 quality', function () {
-      var identity = metadata['a.jpg']
-      parseInt(identity.Quality || identity['JPEG-Quality'] || 0, 10).should.be.below(86)
+    it('should have 80 quality', function () {
+      parseInt(metadata['a.jpg'].Quality, 10).should.be.below(81)
     })
   })
 
@@ -329,7 +329,7 @@ describe('PNG', function () {
         format: 'webp'
       }, function (err, location) {
         if (err)
-          return done(err)
+          throw err
 
         fs.stat(location, done)
       })
