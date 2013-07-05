@@ -43,7 +43,9 @@ describe('JPEG', function () {
 
     it('should delete the uploaded file', function (done) {
       setTimeout(function () {
-        require('fs').stat(metadata.path, function (err) {
+        metadata.path.should.be.ok
+
+        fs.stat(metadata.path, function (err) {
           if (!err)
             throw new Error()
 
@@ -57,30 +59,33 @@ describe('JPEG', function () {
     var signature
 
     it('should create a variant', function (done) {
-      var stream = simgr.getVariant(metadata, {
+      simgr.getVariant(metadata, {
         slug: 'a'
-      })
-
-      simgr.identify(stream, function (err, identity) {
+      }, function (err, filename) {
         if (err)
-          throw err
+          return done(err)
 
-        metadata['a.jpg'] = identity
+        simgr.identify(filename, function (err, identity) {
+          if (err)
+            throw err
 
-        done.identify = true
-        if (done.signature)
-          done()
-      })
+          metadata['a.jpg'] = identity
 
-      simgr.getSignature(stream, function (err, _signature) {
-        if (err)
-          throw err
+          done.identify = true
+          if (done.signature)
+            done()
+        })
 
-        signature = _signature
+        simgr.getSignature(filename, function (err, _signature) {
+          if (err)
+            throw err
 
-        done.signature = true
-        if (done.identify)
-          done()
+          signature = _signature
+
+          done.signature = true
+          if (done.identify)
+            done()
+        })
       })
     })
 
@@ -114,15 +119,20 @@ describe('JPEG', function () {
 
   describe('GET PNG', function () {
     it('should create a variant', function (done) {
-      simgr.identify(simgr.getVariant(metadata, {
+      simgr.getVariant(metadata, {
         slug: 'a',
         format: 'png'
-      }), function (err, identity) {
+      }, function (err, filename) {
         if (err)
-          throw err
+          return done(err)
 
-        metadata['a.png'] = identity
-        done()
+        simgr.identify(filename, function (err, identity) {
+          if (err)
+            throw err
+
+          metadata['a.png'] = identity
+          done()
+        })
       })
     })
 
@@ -150,8 +160,25 @@ describe('JPEG', function () {
       simgr.getVariant(metadata, {
         slug: 'a',
         format: 'gif'
-      }).on('error', function () {
+      }, function (err) {
+        if (!err)
+          throw new Error()
+
         done()
+      })
+    })
+  })
+
+  describe('GET WEBP', function () {
+    it('should work', function (done) {
+      simgr.getVariant(metadata, {
+        slug: 'a',
+        format: 'webp'
+      }, function (err, location) {
+        if (err)
+          return done(err)
+
+        fs.stat(location, done)
       })
     })
   })
@@ -182,30 +209,33 @@ describe('PNG', function () {
 
   describe('GET PNG', function () {
     it('should create a variant', function (done) {
-      var stream = simgr.getVariant(metadata, {
+      simgr.getVariant(metadata, {
         slug: 'a'
-      })
-
-      simgr.identify(stream, function (err, identity) {
+      }, function (err, filename) {
         if (err)
-          throw err
+          return done(err)
 
-        metadata['a.png'] = identity
+        simgr.identify(filename, function (err, identity) {
+          if (err)
+            throw err
 
-        done.identify = true
-        if (done.signature)
-          done()
-      })
+          metadata['a.png'] = identity
 
-      simgr.getSignature(stream, function (err, _signature) {
-        if (err)
-          throw err
+          done.identify = true
+          if (done.signature)
+            done()
+        })
 
-        signature = _signature
+        simgr.getSignature(filename, function (err, _signature) {
+          if (err)
+            throw err
 
-        done.signature = true
-        if (done.identify)
-          done()
+          signature = _signature
+
+          done.signature = true
+          if (done.identify)
+            done()
+        })
       })
     })
 
@@ -283,8 +313,25 @@ describe('PNG', function () {
       simgr.getVariant(metadata, {
         slug: 'a',
         format: 'gif'
-      }).on('error', function () {
+      }, function (err) {
+        if (!err)
+          throw new Error()
+
         done()
+      })
+    })
+  })
+
+  describe('GET WEBP', function () {
+    it('should work', function (done) {
+      simgr.getVariant(metadata, {
+        slug: 'a',
+        format: 'webp'
+      }, function (err, location) {
+        if (err)
+          return done(err)
+
+        fs.stat(location, done)
       })
     })
   })
