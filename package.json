@@ -19,7 +19,7 @@
   },
   "dependencies": {
     "gm": "~1.10.0",
-    "webp-bin": "jonathanong/node-webp-bin",
+    "webp": "~0.0.1",
     "knox": "~0.8.0",
     "array-parallel": "~0.1.0"
   },
