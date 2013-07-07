@@ -1,6 +1,6 @@
---- 
-env: 
-  global: 
+---
+env:
+  global:
   - secure: |-
       Ykan1oCC5YTcgamvRI9QS7ZlmBx/OnwG4GDBPcmY6D0IK67pci4Mmwa0DP/p
       g1WzA8eaKjiJgwZ0IHjSpayTH0OPtMOeaqcnSP6iDD2vll1D2FSMsZgzF2eU
@@ -14,5 +14,6 @@ env:
       qKR5444v25pnXHjxLD5JrWL2aiBOYLr4VpWI8ejpl4JZtb7Tia5yB2OBC3FP
       H1EF1eUnEJ/7jJvsWOMtPXloiJxE8EJTNUhoES0qwSCwUSNAMl0=
 language: node_js
-node_js: 
+node_js:
 - "0.10"
+- "0.8"
