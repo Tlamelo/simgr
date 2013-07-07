@@ -11,8 +11,8 @@ var png = path.join(__dirname, 'taylor-swift.png')
 
 describe('GIF', function () {
   describe('PUT', function () {
-    it('should not validate', function (done) {
-      simgr.validateImage(gif, function (err) {
+    it('should not identify', function (done) {
+      simgr.identifyImage(gif, function (err) {
         if (!err)
           throw new Error()
 
@@ -29,18 +29,20 @@ describe('JPEG', function () {
   }
 
   describe('PUT', function () {
-    it('should validate', function (done) {
-      simgr.validateImage(metadata, done)
-    })
-
     it('should identify', function (done) {
       simgr.identifyImage(metadata, function (err) {
         if (err)
           throw err
 
-        metadata.identity.should.be.ok
-        metadata.identity.format.should.equal('JPEG')
+        metadata.Format.should.equal('JPEG')
         metadata.format.should.equal('jpg')
+        metadata.length.should.be.ok
+        metadata.quality.should.be.ok
+        metadata.colorspace.should.be.ok
+        metadata.width.should.be.ok
+        metadata.height.should.be.ok
+        metadata.pixels.should.be.ok
+
         done()
       })
     })
@@ -51,14 +53,16 @@ describe('JPEG', function () {
   })
 
   describe('GET JPEG', function () {
-    var signature
+    var filename
 
     it('should create a variant', function (done) {
       simgr.getVariant(metadata, {
         slug: 'a'
-      }, function (err, filename) {
+      }, function (err, _filename) {
         if (err)
           throw err
+
+        filename = _filename
 
         gm(filename).identify(function (err, identity) {
           if (err)
@@ -66,26 +70,19 @@ describe('JPEG', function () {
 
           metadata['a.jpg'] = identity
 
-          done.identify = true
-          if (done.signature)
-            done()
-        })
-
-        simgr.getSignature(filename, function (err, _signature) {
-          if (err)
-            throw err
-
-          signature = _signature
-
-          done.signature = true
-          if (done.identify)
-            done()
+          done()
         })
       })
     })
 
-    it('should get the signature', function () {
-      metadata['a.jpg'].Properties.signature.should.equal(signature)
+    it('should get the signature', function (done) {
+      simgr.getSignature(filename, function (err, signature) {
+        if (err)
+          throw err
+
+        metadata['a.jpg'].Properties.signature.should.equal(signature)
+        done()
+      })
     })
 
     it('should be a JPEG', function () {
@@ -185,18 +182,19 @@ describe('PNG', function () {
   }
 
   describe('PUT', function () {
-    it('should validate', function (done) {
-      simgr.validateImage(metadata, done)
-    })
-
     it('should identify', function (done) {
       simgr.identifyImage(metadata, function (err) {
         if (err)
           throw err
 
-        metadata.identity.should.be.ok
-        metadata.identity.format.should.equal('PNG')
+        metadata.Format.should.equal('PNG')
         metadata.format.should.equal('png')
+        metadata.length.should.be.ok
+        metadata.quality.should.equal(0)
+        metadata.colorspace.should.be.ok
+        metadata.width.should.be.ok
+        metadata.height.should.be.ok
+        metadata.pixels.should.be.ok
         done()
       })
     })
@@ -207,14 +205,16 @@ describe('PNG', function () {
   })
 
   describe('GET PNG', function () {
-    var signature
+    var filename
 
     it('should create a variant', function (done) {
       simgr.getVariant(metadata, {
         slug: 'a'
-      }, function (err, filename) {
+      }, function (err, _filename) {
         if (err)
           throw err
+
+        filename = _filename
 
         gm(filename).identify(function (err, identity) {
           if (err)
@@ -222,26 +222,19 @@ describe('PNG', function () {
 
           metadata['a.png'] = identity
 
-          done.identify = true
-          if (done.signature)
-            done()
-        })
-
-        simgr.getSignature(filename, function (err, _signature) {
-          if (err)
-            throw err
-
-          signature = _signature
-
-          done.signature = true
-          if (done.identify)
-            done()
+          done()
         })
       })
     })
 
-    it('should get the signature', function () {
-      metadata['a.png'].Properties.signature.should.equal(signature)
+    it('should get the signature', function (done) {
+      simgr.getSignature(filename, function (err, signature) {
+        if (err)
+          throw err
+
+        metadata['a.png'].Properties.signature.should.equal(signature)
+        done()
+      })
     })
 
     it('should be a PNG', function () {
@@ -260,27 +253,30 @@ describe('PNG', function () {
   })
 
   describe('GET JPEG', function () {
+    var filename
+
     it('should create a variant', function (done) {
       simgr.getVariant(metadata, {
         slug: 'a',
         format: 'jpg'
-      }, function (err, filename) {
+      }, function (err, _filename) {
         if (err)
           throw err
+
+        filename = _filename
 
         gm(filename).identify(function (err, identity) {
           if (err)
             throw err
 
           metadata['a.jpg'] = identity
-          metadata['a.jpg.filename'] = filename
           done()
         })
       })
     })
 
     it('should get signature', function (done) {
-      simgr.getSignature(metadata['a.jpg.filename'], function (err, signature) {
+      simgr.getSignature(filename, function (err, signature) {
         if (err)
           throw err
 
