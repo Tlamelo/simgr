@@ -103,7 +103,7 @@ var metadata = {
   path: '/tmp/someimage.jpg'
 }
 
-simgr.validateImage(metadata, function (err) {
+simgr.identifyImage(metadata, function (err) {
   if (err)
     return callback(err)
 
@@ -136,6 +136,45 @@ app.post('/images', function (req, res, next) {
 This only checks the headers,
 not the actual content of the stream,
 so it's only an artificial form of security.
+
+#### Full example
+
+```js
+app.post('/images', function (req, res, next) {
+  try {
+    simgr.checkHTTPHeaders(req)
+  } catch (err) {
+    // Invalid headers
+    return next(err)
+  }
+
+  simgr.saveFile(req, function (err, path) {
+    if (err)
+      return next(err)
+
+    var metadata = {
+      path: path,
+      name: 'somename'
+    }
+
+    simgr.identifyImage(metadata, function (err) {
+      if (err)
+        // Invalid image or file
+        return next(err)
+
+      simgr.uploadImage(metadata, function (err) {
+        if (err)
+          // Failed to upload to S3
+          return next(err)
+
+        res.json({
+          message: 'ok'
+        })
+      })
+    })
+  })
+})
+```
 
 ### GET
 
