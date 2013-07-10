@@ -20,6 +20,8 @@ Simgr currently works on an Heroku instance (512MB, 4 cores) with up to 25MP ima
 - Designed for low-memory platforms
 - Uses ImageMagick only - does not support GraphicsMagick
 - Supports UNIX platforms only
+- Colorspace correction when resizing
+- Requires ImageMagick v6.7.5+ (due to color correction)
 
 ## Supported Images
 
