@@ -50,6 +50,10 @@ describe('JPEG', function () {
     it('should upload', function (done) {
       simgr.uploadImage(metadata, done)
     })
+
+    it('should have dimensions in the proper order', function () {
+      metadata.width.should.be.above(metadata.height)
+    })
   })
 
   describe('GET JPEG', function () {
@@ -104,7 +108,9 @@ describe('JPEG', function () {
     })
 
     it('should auto orient', function () {
-      metadata['a.jpg'].Orientation.should.equal('Undefined')
+      var identity = metadata['a.jpg']
+      identity.Orientation.should.equal('Undefined')
+      identity.size.width.should.be.above(identity.size.height)
     })
   })
 
