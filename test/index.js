@@ -243,6 +243,10 @@ describe('PNG', function () {
       })
     })
 
+    it('should have 0.45455 gamma', function () {
+      metadata['a.png'].Gamma.should.equal('0.45455')
+    })
+
     it('should be a PNG', function () {
       metadata['a.png'].format.should.equal('PNG')
     })
