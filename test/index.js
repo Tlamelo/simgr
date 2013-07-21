@@ -179,6 +179,28 @@ describe('JPEG', function () {
       })
     })
   })
+
+  describe('GET JPEG JPEGTRAN', function () {
+    it('should work', function (done) {
+      simgr.getVariant(metadata, {
+        slug: 'o'
+      }, function (err, _filename) {
+        if (err)
+          throw err
+
+        filename = _filename
+
+        gm(filename).identify(function (err, identity) {
+          if (err)
+            throw err
+
+          metadata['a.jpg'] = identity
+
+          done()
+        })
+      })
+    })
+  })
 })
 
 describe('PNG', function () {
