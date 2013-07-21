@@ -28,6 +28,7 @@ Input images:
 
 - JPEG
 - PNG
+- TIFF
 
 Output images:
 
@@ -40,6 +41,7 @@ Output images:
 View the [defaults](https://github.com/funraiseme/simgr/blob/master/lib/defaults.js) for more information.
 
 - `s3{}` - AWS S3 key/secret/bucket for storing the original image.
+- `cache{}` - Optional AWS S3 key/secret/bucket for storing image variants.
 - `variants{}` - Image variants.
   - `slug` - The name of the variant.
   - `size` - Either a value from the maximum size in pixels, or `{width: x, height: y}`.
