@@ -10,14 +10,14 @@ var jpg = path.join(__dirname, 'originalSideways.jpg')
 var png = path.join(__dirname, 'taylor-swift.png')
 
 describe('GIF', function () {
-  describe('PUT', function () {
-    it('should not identify', function (done) {
-      simgr.identifyImage(gif, function (err) {
-        if (!err)
-          throw new Error()
+  var metadata = {
+    name: 'gif',
+    path: gif
+  }
 
-        done()
-      })
+  describe('PUT', function () {
+    it('should identify', function (done) {
+      simgr.identifyImage(metadata, done)
     })
   })
 })
