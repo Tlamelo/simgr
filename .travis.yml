@@ -20,3 +20,11 @@ before_install:
 - sudo apt-get update
 - sudo apt-get install imagemagick ffmpeg
 - sudo apt-get upgrade
+- curl -O http://www.imagemagick.org/download/ImageMagick.tar.gz
+- tar xvfz ImageMagick.tar.gz
+- cd ImageMagick-6.8.6-7
+- ./configure
+- make
+- sudo make install
+- sudo ldconfig /usr/local/lib
+- cd ..
