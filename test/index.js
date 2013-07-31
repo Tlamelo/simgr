@@ -10,10 +10,11 @@ var gif = path.join(__dirname, 'crazy-laugh.gif')
 var jpg = path.join(__dirname, 'originalSideways.jpg')
 var png = path.join(__dirname, 'taylor-swift.png')
 var sunflower = path.join(__dirname, 'sunflower.gif')
+var rand = Math.random().toString().slice(2)
 
 describe('GIF', function () {
   var metadata = {
-    name: 'crazy-laugh',
+    name: 'crazy-laugh' + rand,
     path: gif
   }
 
@@ -226,7 +227,7 @@ describe('GIF', function () {
 
 describe('GIF SINGLE', function () {
   var metadata = {
-    name: 'sunflower',
+    name: 'sunflower' + rand,
     path: sunflower
   }
 
@@ -252,7 +253,7 @@ describe('GIF SINGLE', function () {
 
 describe('JPEG', function () {
   var metadata = {
-    name: 'originalSideways',
+    name: 'originalSideways' + rand,
     path: jpg
   }
 
@@ -438,7 +439,7 @@ describe('JPEG', function () {
 
 describe('PNG', function () {
   var metadata = {
-    name: 'taylor-swift',
+    name: 'taylor-swift' + rand,
     path: png
   }
 
@@ -600,7 +601,7 @@ describe('PNG', function () {
 
 describe('Grayscale', function () {
   var metadata = {
-    name: 'justin',
+    name: 'justin' + rand,
     path: path.join(__dirname, 'justin.jpg')
   }
 
@@ -649,7 +650,7 @@ describe('Grayscale', function () {
 
 describe('TIFF', function () {
   var metadata = {
-    name: 'tiff',
+    name: 'tiff' + rand,
     path: path.join(__dirname, 'tiff.tiff')
   }
 
@@ -716,7 +717,7 @@ describe('TIFF', function () {
 
 describe('CMYK', function () {
   var metadata = {
-    name: 'cmyk',
+    name: 'cmyk' + rand,
     path: path.join(__dirname, 'girls.jpg')
   }
 
