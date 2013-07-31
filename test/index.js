@@ -1,5 +1,6 @@
 var path = require('path')
 var fs = require('fs')
+var ffmeta = require('fluent-ffmpeg').Metadata
 var gm = require('gm').subClass({
   imageMagick: true
 })
@@ -150,6 +151,60 @@ describe('GIF', function () {
         if (!err)
           throw new Error()
 
+        done()
+      })
+    })
+  })
+
+  describe('GET WEBM', function () {
+    var filename
+
+    it('should create a variant', function (done) {
+      simgr.getVariant(metadata, {
+        slug: 'o',
+        format: 'webm'
+      }, function (err, _filename) {
+        if (err)
+          throw err
+
+        filename = _filename
+        done()
+      })
+    })
+
+    it('should have a vp8 encoding', function (done) {
+      ffmeta(filename, function (metadata, err) {
+        if (err)
+          throw err
+
+        metadata.video.codec.should.equal('vp8')
+        done()
+      })
+    })
+  })
+
+  describe('GET MP4', function () {
+    var filename
+
+    it('should create a variant', function (done) {
+      simgr.getVariant(metadata, {
+        slug: 'o',
+        format: 'mp4'
+      }, function (err, _filename) {
+        if (err)
+          throw err
+
+        filename = _filename
+        done()
+      })
+    })
+
+    it('should have a h264 encoding', function (done) {
+      ffmeta(filename, function (metadata, err) {
+        if (err)
+          throw err
+
+        metadata.video.codec.should.equal('h264')
         done()
       })
     })
