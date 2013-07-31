@@ -175,6 +175,10 @@ describe('GIF SINGLE', function () {
     it('should have the original', function () {
       metadata.originalPath.should.equal(sunflower)
     })
+
+    it('should have one signature', function () {
+      metadata.signatures.length.should.equal(1)
+    })
   })
 })
 
@@ -198,6 +202,7 @@ describe('JPEG', function () {
         metadata.width.should.be.ok
         metadata.height.should.be.ok
         metadata.pixels.should.be.ok
+        metadata.signatures.length.should.equal(2)
 
         done()
       })
