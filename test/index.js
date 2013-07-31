@@ -31,6 +31,19 @@ describe('GIF', function () {
       metadata.height.should.equal(175)
     })
 
+    it('should have a different signature than the first frame', function (done) {
+      gm(gif).identify('%# ', function (err, signatures) {
+        if (err)
+          throw err
+
+        var signature = signatures.split(' ').shift()
+
+        metadata.signatures[0].should.not.equal(signature)
+        metadata.signatures.length.should.equal(1)
+        done()
+      })
+    })
+
     it('should upload', function (done) {
       simgr.uploadImage(metadata, done)
     })
@@ -172,7 +185,7 @@ describe('GIF', function () {
       })
     })
 
-    it('should have a vp8 encoding', function (done) {
+    it('should have vp8 encoding', function (done) {
       ffmeta(filename, function (metadata, err) {
         if (err)
           throw err
@@ -199,7 +212,7 @@ describe('GIF', function () {
       })
     })
 
-    it('should have a h264 encoding', function (done) {
+    it('should have h264 encoding', function (done) {
       ffmeta(filename, function (metadata, err) {
         if (err)
           throw err
