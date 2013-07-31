@@ -34,6 +34,126 @@ describe('GIF', function () {
       simgr.uploadImage(metadata, done)
     })
   })
+
+  describe('GET JPEG', function () {
+    var filename
+
+    it('should create a variant', function (done) {
+      simgr.getVariant(metadata, {
+        slug: 'a',
+        format: 'jpg'
+      }, function (err, _filename) {
+        if (err)
+          throw err
+
+        filename = _filename
+        done()
+      })
+    })
+
+    it('should be JPEG', function (done) {
+      gm(filename).format(function (err, format) {
+        if (err)
+          throw err
+
+        format.should.equal('JPEG')
+
+        done()
+      })
+    })
+
+    it('should have 1 frame', function (done) {
+      gm(filename).identify('%n', function (err, frames) {
+        if (err)
+          throw err
+
+        frames.should.equal('1')
+        done()
+      })
+    })
+  })
+
+  describe('GET WEBP', function () {
+    var filename
+
+    it('should create a variant', function (done) {
+      simgr.getVariant(metadata, {
+        slug: 'a',
+        format: 'webp'
+      }, function (err, _filename) {
+        if (err)
+          throw err
+
+        filename = _filename
+        done()
+      })
+    })
+
+    // it('should be WEBP', function (done) {
+    //   gm(filename).format(function (err, format) {
+    //     if (err)
+    //       throw err
+
+    //     format.should.equal('WEBP')
+
+    //     done()
+    //   })
+    // })
+
+    // it('should have 1 frame', function (done) {
+    //   gm(filename).identify('%n', function (err, frames) {
+    //     if (err)
+    //       throw err
+
+    //     frames.should.equal('1')
+    //     done()
+    //   })
+    // })
+  })
+
+  describe('GET GIF', function () {
+    var filename
+
+    it('should create a variant', function (done) {
+      simgr.getVariant(metadata, {
+        slug: 'o',
+        format: 'gif'
+      }, function (err, _filename) {
+        if (err)
+          throw err
+
+        filename = _filename
+        done()
+      })
+    })
+
+    it('should be the same image', function (done) {
+      simgr.getHash(gif, function (err, hash) {
+        if (err)
+          throw err
+
+        simgr.getHash(filename, function (err, hash2) {
+          if (err)
+            throw err
+
+          hash.should.equal(hash2)
+          done()
+        })
+      })
+    })
+
+    it('should not allow gif resizes', function (done) {
+      simgr.getVariant(metadata, {
+        slug: 'a',
+        format: 'gif'
+      }, function (err) {
+        if (!err)
+          throw new Error()
+
+        done()
+      })
+    })
+  })
 })
 
 describe('GIF SINGLE', function () {
