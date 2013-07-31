@@ -8,16 +8,52 @@ var simgr = require('../')()
 var gif = path.join(__dirname, 'crazy-laugh.gif')
 var jpg = path.join(__dirname, 'originalSideways.jpg')
 var png = path.join(__dirname, 'taylor-swift.png')
+var sunflower = path.join(__dirname, 'sunflower.gif')
 
 describe('GIF', function () {
   var metadata = {
-    name: 'gif',
+    name: 'crazy-laugh',
     path: gif
   }
 
   describe('PUT', function () {
     it('should identify', function (done) {
       simgr.identifyImage(metadata, done)
+    })
+
+    it('should have the correct frames', function () {
+      metadata.frames.should.equal(119)
+    })
+
+    it('should have the correct dimensions', function () {
+      metadata.width.should.equal(230)
+      metadata.height.should.equal(175)
+    })
+
+    it('should upload', function (done) {
+      simgr.uploadImage(metadata, done)
+    })
+  })
+})
+
+describe('GIF SINGLE', function () {
+  var metadata = {
+    name: 'sunflower',
+    path: sunflower
+  }
+
+  describe('PUT', function () {
+    it('should identify', function (done) {
+      simgr.identifyImage(metadata, done)
+    })
+
+    it('should be PNG', function () {
+      metadata.format.should.equal('png')
+      metadata.Format.should.equal('PNG')
+    })
+
+    it('should have the original', function () {
+      metadata.originalPath.should.equal(sunflower)
     })
   })
 })
@@ -53,6 +89,10 @@ describe('JPEG', function () {
 
     it('should have dimensions in the proper order', function () {
       metadata.width.should.be.above(metadata.height)
+    })
+
+    it('should save the original', function () {
+      metadata.originalPath.should.equal(jpg)
     })
   })
 
