@@ -1,5 +1,6 @@
 var path = require('path')
 var fs = require('fs')
+var ffmeta = require('fluent-ffmpeg').Metadata
 var gm = require('gm').subClass({
   imageMagick: true
 })
@@ -8,16 +9,243 @@ var simgr = require('../')()
 var gif = path.join(__dirname, 'crazy-laugh.gif')
 var jpg = path.join(__dirname, 'originalSideways.jpg')
 var png = path.join(__dirname, 'taylor-swift.png')
+var sunflower = path.join(__dirname, 'sunflower.gif')
 
 describe('GIF', function () {
+  var metadata = {
+    name: 'crazy-laugh',
+    path: gif
+  }
+
   describe('PUT', function () {
-    it('should not identify', function (done) {
-      simgr.identifyImage(gif, function (err) {
+    it('should identify', function (done) {
+      simgr.identifyImage(metadata, done)
+    })
+
+    it('should have the correct frames', function () {
+      metadata.frames.should.equal(119)
+    })
+
+    it('should have the correct dimensions', function () {
+      metadata.width.should.equal(230)
+      metadata.height.should.equal(175)
+    })
+
+    it('should have a different signature than the first frame', function (done) {
+      gm(gif).identify('%# ', function (err, signatures) {
+        if (err)
+          throw err
+
+        var signature = signatures.split(' ').shift()
+
+        metadata.signatures[0].should.not.equal(signature)
+        metadata.signatures.length.should.equal(1)
+        done()
+      })
+    })
+
+    it('should upload', function (done) {
+      simgr.uploadImage(metadata, done)
+    })
+  })
+
+  describe('GET JPEG', function () {
+    var filename
+
+    it('should create a variant', function (done) {
+      simgr.getVariant(metadata, {
+        slug: 'a',
+        format: 'jpg'
+      }, function (err, _filename) {
+        if (err)
+          throw err
+
+        filename = _filename
+        done()
+      })
+    })
+
+    it('should be JPEG', function (done) {
+      gm(filename).format(function (err, format) {
+        if (err)
+          throw err
+
+        format.should.equal('JPEG')
+
+        done()
+      })
+    })
+
+    it('should have 1 frame', function (done) {
+      gm(filename).identify('%n', function (err, frames) {
+        if (err)
+          throw err
+
+        frames.should.equal('1')
+        done()
+      })
+    })
+  })
+
+  describe('GET WEBP', function () {
+    var filename
+
+    it('should create a variant', function (done) {
+      simgr.getVariant(metadata, {
+        slug: 'a',
+        format: 'webp'
+      }, function (err, _filename) {
+        if (err)
+          throw err
+
+        filename = _filename
+        done()
+      })
+    })
+
+    // it('should be WEBP', function (done) {
+    //   gm(filename).format(function (err, format) {
+    //     if (err)
+    //       throw err
+
+    //     format.should.equal('WEBP')
+
+    //     done()
+    //   })
+    // })
+
+    // it('should have 1 frame', function (done) {
+    //   gm(filename).identify('%n', function (err, frames) {
+    //     if (err)
+    //       throw err
+
+    //     frames.should.equal('1')
+    //     done()
+    //   })
+    // })
+  })
+
+  describe('GET GIF', function () {
+    var filename
+
+    it('should create a variant', function (done) {
+      simgr.getVariant(metadata, {
+        slug: 'o',
+        format: 'gif'
+      }, function (err, _filename) {
+        if (err)
+          throw err
+
+        filename = _filename
+        done()
+      })
+    })
+
+    it('should be the same image', function (done) {
+      simgr.getHash(gif, function (err, hash) {
+        if (err)
+          throw err
+
+        simgr.getHash(filename, function (err, hash2) {
+          if (err)
+            throw err
+
+          hash.should.equal(hash2)
+          done()
+        })
+      })
+    })
+
+    it('should not allow gif resizes', function (done) {
+      simgr.getVariant(metadata, {
+        slug: 'a',
+        format: 'gif'
+      }, function (err) {
         if (!err)
           throw new Error()
 
         done()
       })
+    })
+  })
+
+  describe('GET WEBM', function () {
+    var filename
+
+    it('should create a variant', function (done) {
+      simgr.getVariant(metadata, {
+        slug: 'o',
+        format: 'webm'
+      }, function (err, _filename) {
+        if (err)
+          throw err
+
+        filename = _filename
+        done()
+      })
+    })
+
+    it('should have vp8 encoding', function (done) {
+      ffmeta(filename, function (metadata, err) {
+        if (err)
+          throw err
+
+        metadata.video.codec.should.equal('vp8')
+        done()
+      })
+    })
+  })
+
+  describe('GET MP4', function () {
+    var filename
+
+    it('should create a variant', function (done) {
+      simgr.getVariant(metadata, {
+        slug: 'o',
+        format: 'mp4'
+      }, function (err, _filename) {
+        if (err)
+          throw err
+
+        filename = _filename
+        done()
+      })
+    })
+
+    it('should have h264 encoding', function (done) {
+      ffmeta(filename, function (metadata, err) {
+        if (err)
+          throw err
+
+        metadata.video.codec.should.equal('h264')
+        done()
+      })
+    })
+  })
+})
+
+describe('GIF SINGLE', function () {
+  var metadata = {
+    name: 'sunflower',
+    path: sunflower
+  }
+
+  describe('PUT', function () {
+    it('should identify', function (done) {
+      simgr.identifyImage(metadata, done)
+    })
+
+    it('should be PNG', function () {
+      metadata.format.should.equal('png')
+      metadata.Format.should.equal('PNG')
+    })
+
+    it('should have the original', function () {
+      metadata.originalPath.should.equal(sunflower)
+    })
+
+    it('should have one signature', function () {
+      metadata.signatures.length.should.equal(1)
     })
   })
 })
@@ -42,6 +270,7 @@ describe('JPEG', function () {
         metadata.width.should.be.ok
         metadata.height.should.be.ok
         metadata.pixels.should.be.ok
+        metadata.signatures.length.should.equal(2)
 
         done()
       })
@@ -53,6 +282,10 @@ describe('JPEG', function () {
 
     it('should have dimensions in the proper order', function () {
       metadata.width.should.be.above(metadata.height)
+    })
+
+    it('should save the original', function () {
+      metadata.originalPath.should.equal(jpg)
     })
   })
 

@@ -62,3 +62,8 @@ npm-debug.log
 
 *.cache
 *.mpc
+
+# Other #
+#########
+test/*.2
+test/*.mp4
