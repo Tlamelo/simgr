@@ -18,10 +18,10 @@
     "url": "https://github.com/funraiseme/simgr/issues"
   },
   "dependencies": {
-    "knox": "~0.8.3",
-    "jpegtran-bin": "~0.1.7"
+    "knox": "~0.8.3"
   },
   "optionalDependencies": {
+    "jpegtran-bin": "~0.1.7",
     "webp": "~0.0.4",
     "ffmpeg-bin": "~0.0.1"
   },
