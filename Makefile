@@ -5,4 +5,7 @@ test:
 		--timeout 1200000 \
 		--bail
 
-.PHONY: test
+clean:
+	@rm -rf node_modules
+
+.PHONY: test clean
