@@ -648,6 +648,7 @@ describe('Grayscale', function () {
   })
 })
 
+/*
 describe('TIFF', function () {
   var metadata = {
     name: 'tiff' + rand,
@@ -714,6 +715,7 @@ describe('TIFF', function () {
     })
   })
 })
+*/
 
 describe('CMYK', function () {
   var metadata = {
