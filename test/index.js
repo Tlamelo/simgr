@@ -10,6 +10,7 @@ var gif = path.join(__dirname, 'crazy-laugh.gif')
 var jpg = path.join(__dirname, 'originalSideways.jpg')
 var png = path.join(__dirname, 'taylor-swift.png')
 var sunflower = path.join(__dirname, 'sunflower.gif')
+var selena = path.join(__dirname, 'selena.webp')
 var rand = Math.random().toString().slice(2)
 
 describe('GIF', function () {
@@ -768,6 +769,32 @@ describe('CMYK', function () {
         slug: 'a',
         format: 'webp'
       }, done)
+    })
+  })
+})
+
+describe('WEBP', function () {
+  var metadata = {
+    name: 'selena' + rand,
+    path: selena
+  }
+
+  describe('PUT', function () {
+    it('should identify', function (done) {
+      simgr.identifyImage(metadata, done)
+    })
+
+    it('should be PNG', function () {
+      metadata.format.should.equal('png')
+      metadata.Format.should.equal('PNG')
+    })
+
+    it('should have the original', function () {
+      metadata.originalPath.should.equal(selena)
+    })
+
+    it('should have two signatures', function () {
+      metadata.signatures.length.should.equal(2)
     })
   })
 })
