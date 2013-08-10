@@ -771,6 +771,34 @@ describe('CMYK', function () {
       }, done)
     })
   })
+
+  describe('GET JPEG L', function () {
+    var filename
+
+    it('should work', function (done) {
+      simgr.getVariant(metadata, {
+        slug: 'l',
+        format: 'jpg'
+      }, function (err, _filename) {
+        if (err)
+          throw err
+
+        filename = _filename
+        done()
+      })
+    })
+
+    it('should be original size because it did not shrink by 2x', function (done) {
+      gm(filename).size(function (err, size) {
+        if (err)
+          throw err
+
+        size.width.should.equal(metadata.width)
+        size.height.should.equal(metadata.height)
+        done()
+      })
+    })
+  })
 })
 
 describe('WEBP', function () {
