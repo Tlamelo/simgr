@@ -88,30 +88,39 @@ describe('GIF', function () {
     })
 
     it('should have 1 frame', function (done) {
-      gm(filename).identify('%n', function (err, frames) {
+      gm(filename).identify('%n ', function (err, frames) {
         if (err)
           throw err
 
-        frames.should.equal('1')
+        frames.trim().should.equal('1')
         done()
       })
     })
   })
 
   describe('GET WEBP', function () {
-    var filename
+    var filename, headers, signatures
 
     it('should create a variant', function (done) {
       simgr.getVariantFile(metadata, {
         slug: 'a',
         format: 'webp'
-      }, function (err, _filename) {
+      }, function (err, _filename, _headers, _signatures) {
         if (err)
           throw err
 
         filename = _filename
+        headers = _headers
+        signatures = _signatures
         done()
       })
+    })
+
+    it('should have the correct headers', function () {
+      headers['content-length'].should.be.ok
+      headers['content-type'].should.equal('image/webp')
+      headers['etag'].should.be.ok
+      headers['last-modified'].should.be.ok
     })
 
     // it('should be WEBP', function (done) {
