@@ -52,19 +52,28 @@ describe('GIF', function () {
   })
 
   describe('GET JPEG', function () {
-    var filename
+    var filename, headers, signatures
 
     it('should create a variant', function (done) {
-      simgr.getVariant(metadata, {
+      simgr.getVariantFile(metadata, {
         slug: 'a',
         format: 'jpg'
-      }, function (err, _filename) {
+      }, function (err, _filename, _headers, _signatures) {
         if (err)
           throw err
 
         filename = _filename
+        headers = _headers
+        signatures = _signatures
         done()
       })
+    })
+
+    it('should have correct headers', function () {
+      headers['content-length'].should.be.ok
+      headers['content-type'].should.equal('image/jpeg')
+      headers['etag'].should.be.ok
+      headers['last-modified'].should.be.ok
     })
 
     it('should be JPEG', function (done) {
@@ -93,7 +102,7 @@ describe('GIF', function () {
     var filename
 
     it('should create a variant', function (done) {
-      simgr.getVariant(metadata, {
+      simgr.getVariantFile(metadata, {
         slug: 'a',
         format: 'webp'
       }, function (err, _filename) {
@@ -131,7 +140,7 @@ describe('GIF', function () {
     var filename
 
     it('should create a variant', function (done) {
-      simgr.getVariant(metadata, {
+      simgr.getVariantFile(metadata, {
         slug: 'o',
         format: 'gif'
       }, function (err, _filename) {
@@ -159,7 +168,7 @@ describe('GIF', function () {
     })
 
     it('should not allow gif resizes', function (done) {
-      simgr.getVariant(metadata, {
+      simgr.getVariantFile(metadata, {
         slug: 'a',
         format: 'gif'
       }, function (err) {
@@ -175,7 +184,7 @@ describe('GIF', function () {
     var filename
 
     it('should create a variant', function (done) {
-      simgr.getVariant(metadata, {
+      simgr.getVariantFile(metadata, {
         slug: 'o',
         format: 'webm'
       }, function (err, _filename) {
@@ -202,7 +211,7 @@ describe('GIF', function () {
     var filename
 
     it('should create a variant', function (done) {
-      simgr.getVariant(metadata, {
+      simgr.getVariantFile(metadata, {
         slug: 'o',
         format: 'mp4'
       }, function (err, _filename) {
@@ -295,7 +304,7 @@ describe('JPEG', function () {
     var filename
 
     it('should create a variant', function (done) {
-      simgr.getVariant(metadata, {
+      simgr.getVariantFile(metadata, {
         slug: 'a'
       }, function (err, _filename) {
         if (err)
@@ -351,7 +360,7 @@ describe('JPEG', function () {
 
   describe('GET PNG', function () {
     it('should create a variant', function (done) {
-      simgr.getVariant(metadata, {
+      simgr.getVariantFile(metadata, {
         slug: 'a',
         format: 'png'
       }, function (err, filename) {
@@ -389,7 +398,7 @@ describe('JPEG', function () {
 
   describe('GET GIF', function () {
     it('should error', function (done) {
-      simgr.getVariant(metadata, {
+      simgr.getVariantFile(metadata, {
         slug: 'a',
         format: 'gif'
       }, function (err) {
@@ -403,7 +412,7 @@ describe('JPEG', function () {
 
   describe('GET WEBP', function () {
     it('should work', function (done) {
-      simgr.getVariant(metadata, {
+      simgr.getVariantFile(metadata, {
         slug: 'a',
         format: 'webp'
       }, function (err, location) {
@@ -417,7 +426,7 @@ describe('JPEG', function () {
 
   describe('GET JPEG JPEGTRAN', function () {
     it('should work', function (done) {
-      simgr.getVariant(metadata, {
+      simgr.getVariantFile(metadata, {
         slug: 'o'
       }, function (err, _filename) {
         if (err)
@@ -471,7 +480,7 @@ describe('PNG', function () {
     var filename
 
     it('should create a variant', function (done) {
-      simgr.getVariant(metadata, {
+      simgr.getVariantFile(metadata, {
         slug: 'a'
       }, function (err, _filename) {
         if (err)
@@ -523,7 +532,7 @@ describe('PNG', function () {
     var filename
 
     it('should create a variant', function (done) {
-      simgr.getVariant(metadata, {
+      simgr.getVariantFile(metadata, {
         slug: 'a',
         format: 'jpg'
       }, function (err, _filename) {
@@ -573,7 +582,7 @@ describe('PNG', function () {
 
   describe('GET GIF', function () {
     it('should error', function (done) {
-      simgr.getVariant(metadata, {
+      simgr.getVariantFile(metadata, {
         slug: 'a',
         format: 'gif'
       }, function (err) {
@@ -587,7 +596,7 @@ describe('PNG', function () {
 
   describe('GET WEBP', function () {
     it('should work', function (done) {
-      simgr.getVariant(metadata, {
+      simgr.getVariantFile(metadata, {
         slug: 'a',
         format: 'webp'
       }, function (err, location) {
@@ -623,7 +632,7 @@ describe('Grayscale', function () {
     var filename
 
     it('should work', function (done) {
-      simgr.getVariant(metadata, {
+      simgr.getVariantFile(metadata, {
         slug: 'l',
         format: 'jpg'
       }, function (err, _filename) {
@@ -671,7 +680,7 @@ describe('TIFF', function () {
 
   describe('GET TIFF', function () {
     it('should return a png', function (done) {
-      simgr.getVariant(metadata, {
+      simgr.getVariantFile(metadata, {
         slug: 'l',
         format: 'tiff'
       }, function (err, filename) {
@@ -691,14 +700,14 @@ describe('TIFF', function () {
 
   describe('GET PNG', function () {
     it('should work', function (done) {
-      simgr.getVariant(metadata, {
+      simgr.getVariantFile(metadata, {
         slug: 'l',
         format: 'png'
       }, done)
     })
 
     it('should get PNG by default', function (done) {
-      simgr.getVariant(metadata, {
+      simgr.getVariantFile(metadata, {
         slug: 'l'
       }, function (err, filename) {
         if (err)
@@ -740,7 +749,7 @@ describe('CMYK', function () {
     var filename
 
     it('should work', function (done) {
-      simgr.getVariant(metadata, {
+      simgr.getVariantFile(metadata, {
         slug: 'a',
         format: 'jpg'
       }, function (err, _filename) {
@@ -765,7 +774,7 @@ describe('CMYK', function () {
 
   describe('GET WEBP', function () {
     it('should work', function (done) {
-      simgr.getVariant(metadata, {
+      simgr.getVariantFile(metadata, {
         slug: 'a',
         format: 'webp'
       }, done)
@@ -776,7 +785,7 @@ describe('CMYK', function () {
     var filename
 
     it('should work', function (done) {
-      simgr.getVariant(metadata, {
+      simgr.getVariantFile(metadata, {
         slug: 'l',
         format: 'jpg'
       }, function (err, _filename) {
