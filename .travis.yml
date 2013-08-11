@@ -1,6 +1,6 @@
----
-env:
-  global:
+--- 
+env: 
+  global: 
   - secure: |-
       Ykan1oCC5YTcgamvRI9QS7ZlmBx/OnwG4GDBPcmY6D0IK67pci4Mmwa0DP/p
       g1WzA8eaKjiJgwZ0IHjSpayTH0OPtMOeaqcnSP6iDD2vll1D2FSMsZgzF2eU
@@ -13,10 +13,21 @@ env:
       dHpiaMiPjrdoVrolQICOUkaJ0womQ2OVsoIMAAeEFSVDgWICBrQ3b/SUZKBS
       qKR5444v25pnXHjxLD5JrWL2aiBOYLr4VpWI8ejpl4JZtb7Tia5yB2OBC3FP
       H1EF1eUnEJ/7jJvsWOMtPXloiJxE8EJTNUhoES0qwSCwUSNAMl0=
-language: node_js
-node_js:
+  - secure: |-
+      jOhShwBV6dX33LXVcPp65smW5bDvjgO9ktHbAfsGDaMq6u5KBBYEdv0PzRJF
+      UQ/eQ/EFa0S1QXrBFnWXGLOMCvAhIhHI3PHZp5CwiWAQ4TUrl3WYYJPBxUOq
+      s/RTzUAlHN+ImTz0sR85Kx2DPTP8/mKKlUn67buL87rTxxN/hMQ=
+  - secure: |-
+      ie4ly3DzowLoaMB0zwNxrzKWT8O9j2Fi8hMCbh8xDM4iCPHLZ8ecxG+70/xR
+      glk1uyIcK3s+c4KBD2p4q/FCH1bQJ1S+d3ayOYqAJ7OMIQpeCvACX+upXJoB
+      NO8sKcZQrapxo3UpsGTezAhJ/53BnbYqT+yG22MtdGez6re7JP4=
+  - secure: |-
+      kHVji9+0pZe3eREkVGVXKm6CATlP/CaXMF+rX1tIetZoHvOJbysSIYVOgNE1
+      eMJrjKZdxzdBL/KqbSohkqZFYQixAGVJ1mtBystd9fXFtT3Mwgn1g/N/HJ4O
+      1sg6YpGcFKDwaIOuFPRhq9qqz26Qr6A8mw/2MuvHmpUn8dn5Fq0=
+node_js: 
 - "0.10"
-before_install:
+before_install: 
 - sudo apt-get update
 - sudo apt-get install imagemagick ffmpeg libjpeg-dev libpng-dev libtiff-dev
 - sudo apt-get upgrade
@@ -35,3 +46,4 @@ before_install:
 - sudo make install
 - sudo ldconfig /usr/local/lib
 - cd ..
+language: node_js
