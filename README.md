@@ -1,40 +1,46 @@
 # simgr - Simple Image Resizer [![Build Status](https://travis-ci.org/funraiseme/simgr.png)](https://travis-ci.org/funraiseme/simgr)
 
-Instead of creating multple sizes of an image,
-simgr works by uploading that image to S3,
-then resizing the image on demand.
-This is better for low-memory platforms as batch resizing kills memory and CPU.
+Simgr is a helper for your app to manage different variants of your images (basically different sizes).
+However, instead of the usual batch resizing,
+Simgr creates each variant on demand.
+Empirically, this works better on low memory platforms.
 
-Simgr works with image files,
-not images in node streams or buffers.
-Empirically, resizing images using node's streams and buffers drastically increases memory usage as well as decreases performance.
-Most image libraries use temporary files anyways,
-so avoiding disk usage is futile.
-
-Simgr currently works on an Heroku instance (512MB, 4 cores) with up to 25MP images.
+Simgr currently works on an Heroku instance (512MB) with up to 25MP images with S3 and behind CloudFront.
 
 ## Features, Support, and Limitations
 
-- Image validation
-- Designed for low-memory platforms
-- WebP output support - WebP input support will come when it's more supported
+- Image validation for HTTP streams
+- Designed for low-memory platforms such as Heroku
+- WebP output support
+- Convert GIFs to WebM and MP4 - significantly reduces the size of the GIF and increases performance on all modern browsers
 - Colorspace correction when resizing - Only supports sRGB and Grayscale colorspaces
-- Requires ImageMagick v6.7.5+ - GraphicsMagick is not supported
-- Requires UNIX platforms - Windows platforms are untested
+- Requires ImageMagick v6.7.5+
+  - `apt`'s version is out of date.
+  - GraphicsMagick is not supported
+- Requires UNIX 64-bit platforms - Windows is unsupported.
 
-## Supported Images
+## Supported Image Conversions
 
 Input images:
 
 - JPEG
 - PNG
-- TIFF
+- GIF
+- TIFF (if supported by the platform)
 
 Output images:
 
 - JPEG
 - PNG
+- GIF (only if GIF source)
 - WebP (if supported by the platform)
+
+Output videos (only if animated GIF is the source):
+
+- WebM (vpx)
+- MP4 (x264)
+
+Theora is not supported as WebM, but adding support is trivial.
 
 ## Options
 
@@ -56,6 +62,8 @@ View the [defaults](https://github.com/funraiseme/simgr/blob/master/lib/defaults
 To reduce memory usage, you may be interested in looking at [ImageMagick's -limit option](http://www.imagemagick.org/script/command-line-options.php#limit).
 
 ## API
+
+This API is a little out of date.
 
 ### metadata
 
