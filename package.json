@@ -19,7 +19,8 @@
   },
   "dependencies": {
     "knox": "~0.8.3",
-    "array-series": "~0.1.0"
+    "array-series": "~0.1.0",
+    "array-parallel": "~0.1.0"
   },
   "optionalDependencies": {
     "jpegtran-bin": "~0.1.7",
