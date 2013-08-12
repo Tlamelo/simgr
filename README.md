@@ -14,6 +14,7 @@ Simgr currently works on an Heroku instance (512MB) with up to 25MP images with 
 - WebP output support
 - Convert GIFs to WebM and MP4 - significantly reduces the size of the GIF and increases performance on all modern browsers
 - Colorspace correction when resizing - Only supports sRGB and Grayscale colorspaces
+- Uses imagemagick, cwebp, jpegtran, and ffmpeg libraries.
 - Requires ImageMagick v6.7.5+
   - `apt`'s version is out of date.
   - GraphicsMagick is not supported
