@@ -420,6 +420,8 @@ describe('JPEG', function () {
   })
 
   describe('GET WEBP', function () {
+    var filename
+
     it('should work', function (done) {
       simgr.getVariantFile(metadata, {
         slug: 'a',
@@ -428,7 +430,21 @@ describe('JPEG', function () {
         if (err)
           throw err
 
+        filename = location
         fs.stat(location, done)
+      })
+    })
+
+    // This test will fail on machines that do not support WebP in ImageMagick
+    it('should be the correct size', function (done) {
+      gm(filename).size(function (err, size) {
+        if (err)
+          throw err
+
+        size.width.should.equal(120)
+        size.height.should.equal(40)
+
+        done()
       })
     })
   })
@@ -605,6 +621,8 @@ describe('PNG', function () {
   })
 
   describe('GET WEBP', function () {
+    var filename
+
     it('should work', function (done) {
       simgr.getVariantFile(metadata, {
         slug: 'a',
@@ -613,7 +631,20 @@ describe('PNG', function () {
         if (err)
           throw err
 
+        filename = location
         fs.stat(location, done)
+      })
+    })
+
+    it('should be the correct size', function (done) {
+      gm(filename).size(function (err, size) {
+        if (err)
+          throw err
+
+        size.width.should.equal(81)
+        size.height.should.equal(120)
+
+        done()
       })
     })
   })
