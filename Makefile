@@ -8,4 +8,7 @@ test:
 clean:
 	@rm -rf node_modules
 
-.PHONY: test clean
+lint:
+	@${BIN}jshint .
+
+.PHONY: test clean lint

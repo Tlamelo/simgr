@@ -31,7 +31,8 @@
     "gm": "~1.11.0",
     "mocha": "~1.12.0",
     "should": "~1.2.2",
-    "fluent-ffmpeg": "~1.5.2"
+    "fluent-ffmpeg": "~1.5.2",
+    "jshint": "~2.1.9"
   },
   "scripts": {
     "test": "make test;"
