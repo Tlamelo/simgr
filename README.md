@@ -10,7 +10,7 @@ Simgr currently works on an Heroku instance (512MB) with up to 25MP images with 
 ## Features, Support, and Limitations
 
 - Image validation for HTTP streams
-- Designed for low-memory platforms such as Heroku
+- Designed for low-memory platforms
 - WebP output support
 - Convert GIFs to WebM and MP4 - significantly reduces the size of the GIF and increases performance on all modern browsers
 - Colorspace correction when resizing - Only supports sRGB and Grayscale colorspaces
@@ -41,7 +41,60 @@ Output videos (only if animated GIF is the source):
 - WebM (vpx)
 - MP4 (x264)
 
-Theora is not supported as WebM, but adding support is trivial.
+Theora is not supported as WebM is more widely supported,
+but adding support is trivial.
+
+## Platform Architecture
+
+Simgr is designed to be placed in the following stack:
+
+- CDN
+- S3 bucket for variants the the preferred origin
+- Simgr app as the least preferred origin
+
+That is, your CDN should use both your cache S3 bucket and your Simgr app as origins with the S3 bucket having preference over your app.
+Remember, you want to expose your cache bucket that stores your variants with reduced redundancy,
+not your private bucket that stores the original images.
+
+This allows the CDNs to check if the variant exists in S3,
+and only if it does not does the CDN request the image from your server.
+This will help take load off your app.
+The only caveat is that your images must be served from the root,
+ie `/myimage.o.png`.
+Serving from `/images/myimage.o.png` will not work with this architecture as the route must match S3's routes.
+
+Of course, Simgr will work just fine without S3 in front of the CDN.
+
+## Software Architecture
+
+### Resize by demand
+
+Traditionally, image platforms create every variant all at once.
+Although this is the absolute fastest method,
+it assumes you have enough CPU power to do so.
+It also requires complex command line operations otherwise you would be storing the same image multiple times in memory.
+
+Also, most of these variants won't be used immediately.
+Perhaps the user would only see a preview-sized verison first.
+Thus, creating all the variants is quite unnecessary.
+
+### No worker processes, no queuing system
+
+### Scale independently
+
+### Store originals
+
+### Cache variants in a separate bucket
+
+### CDN dependency
+
+### Gradual upgrades
+
+Perhaps the best reason to resize by demand is that it allows you to easily upgrade your image processing algorithms over time.
+You may find a new technique that would vastly improve quality or compression.
+Instead of creating a batch process that recreates all your variants,
+you can just upgrade your algorithms and invalidate your cache both on S3 and at your CDN.
+Over time, your images will be upgraded.
 
 ## Options
 
