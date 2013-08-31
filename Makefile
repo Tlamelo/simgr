@@ -1,7 +1,7 @@
 BIN = ./node_modules/.bin/
 
 test:
-	@./node_modules/.bin/mocha \
+	@${BIN}mocha \
 		--require should \
 		--reporter spec \
 		--timeout 1200000 \
