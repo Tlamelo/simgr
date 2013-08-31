@@ -20,7 +20,8 @@
   "dependencies": {
     "knox": "~0.8.3",
     "array-series": "~0.1.0",
-    "array-parallel": "~0.1.0"
+    "array-parallel": "~0.1.0",
+    "debug": "~0.7.2"
   },
   "optionalDependencies": {
     "jpegtran-bin": "~0.1.7",
@@ -32,8 +33,7 @@
     "mocha": "~1.12",
     "should": "~1.2",
     "fluent-ffmpeg": "~1.5",
-    "jshint": "~2.1",
-    "debug": "*"
+    "jshint": "~2.1"
   },
   "scripts": {
     "test": "make test;"
