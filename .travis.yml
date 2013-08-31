@@ -47,3 +47,5 @@ before_install:
 - sudo ldconfig /usr/local/lib
 - cd ..
 language: node_js
+env:
+- DEBUG=simgr
