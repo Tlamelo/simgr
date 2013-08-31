@@ -1,6 +1,6 @@
---- 
-env: 
-  global: 
+---
+env:
+  global:
   - secure: |-
       Ykan1oCC5YTcgamvRI9QS7ZlmBx/OnwG4GDBPcmY6D0IK67pci4Mmwa0DP/p
       g1WzA8eaKjiJgwZ0IHjSpayTH0OPtMOeaqcnSP6iDD2vll1D2FSMsZgzF2eU
@@ -25,9 +25,9 @@ env:
       kHVji9+0pZe3eREkVGVXKm6CATlP/CaXMF+rX1tIetZoHvOJbysSIYVOgNE1
       eMJrjKZdxzdBL/KqbSohkqZFYQixAGVJ1mtBystd9fXFtT3Mwgn1g/N/HJ4O
       1sg6YpGcFKDwaIOuFPRhq9qqz26Qr6A8mw/2MuvHmpUn8dn5Fq0=
-node_js: 
+node_js:
 - "0.10"
-before_install: 
+before_install:
 - sudo apt-get update
 - sudo apt-get install imagemagick ffmpeg libjpeg-dev libpng-dev libtiff-dev
 - sudo apt-get upgrade
@@ -38,9 +38,9 @@ before_install:
 - make
 - sudo make install
 - cd ..
-- curl -O http://www.imagemagick.org/download/ImageMagick-6.8.6-8.tar.gz
-- tar xvfz ImageMagick-6.8.6-8.tar.gz
-- cd ImageMagick-6.8.6-8
+- curl -O http://www.imagemagick.org/download/ImageMagick-6.8.6-9.tar.gz
+- tar xvfz ImageMagick-6.8.6-9.tar.gz
+- cd ImageMagick-6.8.6-9
 - ./configure --with-webp=yes
 - make
 - sudo make install
