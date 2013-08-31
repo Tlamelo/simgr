@@ -28,11 +28,11 @@
     "ffmpeg-bin": "~0.0.1"
   },
   "devDependencies": {
-    "gm": "~1.11.0",
-    "mocha": "~1.12.0",
-    "should": "~1.2.2",
-    "fluent-ffmpeg": "~1.5.2",
-    "jshint": "~2.1.9",
+    "gm": "~1.11",
+    "mocha": "~1.12",
+    "should": "~1.2",
+    "fluent-ffmpeg": "~1.5",
+    "jshint": "~2.1",
     "debug": "*"
   },
   "scripts": {
