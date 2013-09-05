@@ -1,32 +1,33 @@
 ---
+node_js:
+- "0.10"
+language: node_js
 env:
   global:
   - secure: |-
-      Ykan1oCC5YTcgamvRI9QS7ZlmBx/OnwG4GDBPcmY6D0IK67pci4Mmwa0DP/p
-      g1WzA8eaKjiJgwZ0IHjSpayTH0OPtMOeaqcnSP6iDD2vll1D2FSMsZgzF2eU
-      +bkyXnCdORz8Ax+JQEztCl+NFUw/5u6WbhqwkPv90PSy9xfsWCY=
+      EXUZSW3K1MtBnCoFADIIP1mWhpy2FbkLVotAHs0QEkS6vbfSVSbVVpCr5M7R
+      9GUluxU5/q9sjycBilcMWTmp6I0fibMXVRoNhF6Fptew1+2HpdyTdLJpV6DY
+      wsCCfY/Db1s1a7u687XKHiLz20CWGLR4o1JwKU5++bosmJi4aYw=
   - secure: |-
-      nDe0EMyj1EBTpYb32UxiXtpkSEBX2g7d5WD81Jz8EouFbqi5oop5jcjynjqh
-      BaO+ECxoJV8BvWTbiCttXKfcXGQSLuUqNluK6+2aWzrhX5iWWxbS1aVs9jXf
-      BAq2mfW+P+/ifcHuNbYiLu2hWfzd/QfEYlArsAtHu0eUBEbpRx0=
+      J7DQTbVgMlatjZnsNOLS0r9XwobAMhGTIzx9XsDRdwE6xaV2ADS0utUtSkFF
+      BTCQJ1Wi4Is6dgauS/MlmK1wHo+wqkOi6+16cpecUZZ8vwYKW6hv52h8/73t
+      vvwHnPaWM0aQL01+v6lm67/80QXqq0bxEv9mbiHblBeCdskbdOA=
   - secure: |-
-      dHpiaMiPjrdoVrolQICOUkaJ0womQ2OVsoIMAAeEFSVDgWICBrQ3b/SUZKBS
-      qKR5444v25pnXHjxLD5JrWL2aiBOYLr4VpWI8ejpl4JZtb7Tia5yB2OBC3FP
-      H1EF1eUnEJ/7jJvsWOMtPXloiJxE8EJTNUhoES0qwSCwUSNAMl0=
+      gCMdIyDN9us+uu8sClqj9qq9HcDlkMUzIad6AQ66xi7uswBujijPZj7b0dfb
+      4EbJ8QFFgxfXlC4i2TtYvWlJdttYtlG7lp7f2b//nuGj4TvbeX/CDMoiXWtI
+      p/aB33zcPS/RqKwQCfMZ9dVXSSrCfRmz87g/6B1VBEDCsQNhdXU=
   - secure: |-
-      jOhShwBV6dX33LXVcPp65smW5bDvjgO9ktHbAfsGDaMq6u5KBBYEdv0PzRJF
-      UQ/eQ/EFa0S1QXrBFnWXGLOMCvAhIhHI3PHZp5CwiWAQ4TUrl3WYYJPBxUOq
-      s/RTzUAlHN+ImTz0sR85Kx2DPTP8/mKKlUn67buL87rTxxN/hMQ=
+      ieiOSRsJdcdBt58wyIwn7XY/of1WIyZo/qbQJLuY+AOPEIEFbSkk/IHvK610
+      dFHaRkYBmYl0+NsssmiAf0edDGBgrU4jqchv7XttyYIGcyzXMnnFHFX8zFJ4
+      DNZ0MgI30XYVyRyy3Euc+5pEO5rJsNMU0ZqHezD0jHqroLAhyeE=
   - secure: |-
-      ie4ly3DzowLoaMB0zwNxrzKWT8O9j2Fi8hMCbh8xDM4iCPHLZ8ecxG+70/xR
-      glk1uyIcK3s+c4KBD2p4q/FCH1bQJ1S+d3ayOYqAJ7OMIQpeCvACX+upXJoB
-      NO8sKcZQrapxo3UpsGTezAhJ/53BnbYqT+yG22MtdGez6re7JP4=
+      WGpghTkUNXIthPopbl6QsrRK7d9WrdPqJQb5SzKA/Lmf8smOcaLg/uPnNkCr
+      TRNA0s7jdWcQX0UkMATClUawiD8dyAaTo/zrUg7c+4kBqibEV34UJwIT7awJ
+      ev9oXBQOe+6KWVPMdSORts8PH6Cb0+wMk+iV2TNFYNfKh7mnOOA=
   - secure: |-
-      kHVji9+0pZe3eREkVGVXKm6CATlP/CaXMF+rX1tIetZoHvOJbysSIYVOgNE1
-      eMJrjKZdxzdBL/KqbSohkqZFYQixAGVJ1mtBystd9fXFtT3Mwgn1g/N/HJ4O
-      1sg6YpGcFKDwaIOuFPRhq9qqz26Qr6A8mw/2MuvHmpUn8dn5Fq0=
-node_js:
-- "0.10"
+      VHWs5Lkedl4Mnb85yKVizuq7k9jSlhDHOgSX7jNh9TIcibP0KZPh1UO5ORCv
+      3H50W1TWfHd0lNp849zwyu7//1lKwTjlW8J/T20nU98UgwBvo4aykss0TVTj
+      BHOqWWLRy1MlqNFb0JOh8BZdSChNLbmfIn2f61ljYZ0rWqu7njU=
 before_install:
 - sudo apt-get update
 - sudo apt-get install imagemagick ffmpeg libjpeg-dev libpng-dev libtiff-dev
@@ -46,6 +47,3 @@ before_install:
 - sudo make install
 - sudo ldconfig /usr/local/lib
 - cd ..
-language: node_js
-env:
-- DEBUG=simgr
