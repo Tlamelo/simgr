@@ -24,7 +24,7 @@
     "debug": "~0.7.2"
   },
   "optionalDependencies": {
-    "jpegtran-bin": "~0.1.7",
+    "jpegtran-bin": "~0.2.0",
     "webp": "~0.0.4",
     "ffmpeg-bin": "~0.0.1"
   },
