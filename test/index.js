@@ -13,6 +13,20 @@ var sunflower = path.join(__dirname, 'sunflower.gif')
 var selena = path.join(__dirname, 'selena.webp')
 var rand = Math.random().toString().slice(2)
 
+describe('TEXT', function () {
+  var metadata = {
+    name: 'klajsdfklajsdf',
+    path: path.join(__dirname, 'index.js')
+  }
+
+  it('should error on identify', function (done) {
+    simgr.identifyImage(metadata, function (err) {
+      err.key.should.equal('file-not-an-image')
+      done()
+    })
+  })
+})
+
 describe('GIF', function () {
   var metadata = {
     name: 'crazy-laugh' + rand,
