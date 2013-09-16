@@ -30,11 +30,11 @@
     "ffmpeg-bin": "~0.0.1"
   },
   "devDependencies": {
-    "gm": "~1.11",
-    "mocha": "~1.12",
-    "should": "~1.2",
-    "fluent-ffmpeg": "~1.5",
-    "jshint": "~2.1"
+    "gm": "*",
+    "mocha": "*",
+    "should": "*",
+    "fluent-ffmpeg": "*",
+    "jshint": "*"
   },
   "scripts": {
     "test": "make test;"
