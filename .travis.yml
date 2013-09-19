@@ -39,9 +39,9 @@ before_install:
 - make
 - sudo make install
 - cd ..
-- curl -O http://www.imagemagick.org/download/ImageMagick-6.8.6-9.tar.gz
-- tar xvfz ImageMagick-6.8.6-9.tar.gz
-- cd ImageMagick-6.8.6-9
+- curl -O http://www.imagemagick.org/download/ImageMagick-6.8.6-10.tar.gz
+- tar xvfz ImageMagick-6.8.6-10.tar.gz
+- cd ImageMagick-6.8.6-10
 - ./configure --with-webp=yes
 - make
 - sudo make install
