@@ -5,7 +5,6 @@ test:
 		--require should \
 		--reporter spec \
 		--timeout 1200000 \
-		--bail \
 		test/setup.js \
 		test/jpeg.js \
 		test/png.js \
