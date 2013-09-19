@@ -1,14 +1,15 @@
 describe('PNG', function () {
+  var image = path.join(__dirname, 'images', 'taylor-swift.png')
+
   var metadata = {
     name: 'taylor-swift' + rand,
-    path: path.join(__dirname, 'images', 'taylor-swift.png')
+    path: image
   }
 
   describe('PUT', function () {
     it('should identify', function (done) {
       simgr.identifyImage(metadata, function (err) {
-        if (err)
-          throw err
+        assert.ifError(err)
 
         metadata.Format.should.equal('PNG')
         metadata.format.should.equal('png')
@@ -35,17 +36,14 @@ describe('PNG', function () {
       simgr.getVariantFile(metadata, {
         slug: 'a'
       }, function (err, _filename) {
-        if (err)
-          throw err
+        assert.ifError(err)
 
         filename = _filename
 
         gm(filename).identify(function (err, identity) {
-          if (err)
-            throw err
+          assert.ifError(err)
 
           metadata['a.png'] = identity
-
           done()
         })
       })
@@ -53,8 +51,7 @@ describe('PNG', function () {
 
     it('should get the signature', function (done) {
       simgr.getSignature(filename, function (err, signature) {
-        if (err)
-          throw err
+        assert.ifError(err)
 
         metadata['a.png'].Properties.signature.should.equal(signature)
         done()
@@ -88,14 +85,12 @@ describe('PNG', function () {
         slug: 'a',
         format: 'jpg'
       }, function (err, _filename) {
-        if (err)
-          throw err
+        assert.ifError(err)
 
         filename = _filename
 
         gm(filename).identify(function (err, identity) {
-          if (err)
-            throw err
+          assert.ifError(err)
 
           metadata['a.jpg'] = identity
           done()
@@ -105,8 +100,7 @@ describe('PNG', function () {
 
     it('should get signature', function (done) {
       simgr.getSignature(filename, function (err, signature) {
-        if (err)
-          throw err
+        assert.ifError(err)
 
         metadata['a.jpg'].Properties.signature.should.equal(signature)
         done()
@@ -138,9 +132,7 @@ describe('PNG', function () {
         slug: 'a',
         format: 'gif'
       }, function (err) {
-        if (!err)
-          throw new Error()
-
+        assert.ok(err)
         done()
       })
     })
@@ -154,8 +146,7 @@ describe('PNG', function () {
         slug: 'a',
         format: 'webp'
       }, function (err, location) {
-        if (err)
-          throw err
+        assert.ifError(err)
 
         filename = location
         fs.stat(location, done)
@@ -164,8 +155,7 @@ describe('PNG', function () {
 
     it('should be the correct size', function (done) {
       gm(filename).size(function (err, size) {
-        if (err)
-          throw err
+        assert.ifError(err)
 
         size.width.should.equal(81)
         size.height.should.equal(120)

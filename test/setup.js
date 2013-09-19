@@ -1,5 +1,6 @@
 path = require('path')
 fs = require('fs')
+assert = require('assert')
 ffmeta = require('fluent-ffmpeg').Metadata
 gm = require('gm').subClass({
   imageMagick: true

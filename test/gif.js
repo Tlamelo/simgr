@@ -21,11 +21,10 @@ describe('GIF', function () {
     })
 
     it('should have a different signature than the first frame', function (done) {
-      gm(metadata.path).identify('%# ', function (err, signatures) {
-        if (err)
-          throw err
+      gm(image).identify('%# ', function (err, signatures) {
+        assert.ifError(err)
 
-        var signature = signatures.split(' ').shift()
+        var signature = signatures.trim().split(/\s+/).shift()
 
         metadata.signatures[0].should.not.equal(signature)
         metadata.signatures.length.should.equal(1)
@@ -46,8 +45,7 @@ describe('GIF', function () {
         slug: 'a',
         format: 'jpg'
       }, function (err, _filename, _headers, _signatures) {
-        if (err)
-          throw err
+        assert.ifError(err)
 
         filename = _filename
         headers = _headers
@@ -65,8 +63,7 @@ describe('GIF', function () {
 
     it('should be JPEG', function (done) {
       gm(filename).format(function (err, format) {
-        if (err)
-          throw err
+        assert.ifError(err)
 
         format.should.equal('JPEG')
 
@@ -76,8 +73,7 @@ describe('GIF', function () {
 
     it('should have 1 frame', function (done) {
       gm(filename).identify('%n ', function (err, frames) {
-        if (err)
-          throw err
+        assert.ifError(err)
 
         frames.trim().should.equal('1')
         done()
@@ -93,8 +89,7 @@ describe('GIF', function () {
         slug: 'a',
         format: 'webp'
       }, function (err, _filename, _headers, _signatures) {
-        if (err)
-          throw err
+        assert.ifError(err)
 
         headers = _headers
         done()
@@ -117,8 +112,7 @@ describe('GIF', function () {
         slug: 'o',
         format: 'gif'
       }, function (err, _filename) {
-        if (err)
-          throw err
+        assert.ifError(err)
 
         filename = _filename
         done()
@@ -127,12 +121,10 @@ describe('GIF', function () {
 
     it('should be the same image', function (done) {
       simgr.getHash(image, function (err, hash) {
-        if (err)
-          throw err
+        assert.ifError(err)
 
         simgr.getHash(filename, function (err, hash2) {
-          if (err)
-            throw err
+          assert.ifError(err)
 
           hash.should.equal(hash2)
           done()
@@ -145,9 +137,7 @@ describe('GIF', function () {
         slug: 'a',
         format: 'gif'
       }, function (err) {
-        if (!err)
-          throw new Error()
-
+        assert.ok(err)
         done()
       })
     })
@@ -161,8 +151,7 @@ describe('GIF', function () {
         slug: 'o',
         format: 'webm'
       }, function (err, _filename) {
-        if (err)
-          throw err
+        assert.ifError(err)
 
         filename = _filename
         done()
@@ -171,8 +160,7 @@ describe('GIF', function () {
 
     it('should have vp8 encoding', function (done) {
       ffmeta(filename, function (metadata, err) {
-        if (err)
-          throw err
+        assert.ifError(err)
 
         metadata.video.codec.should.equal('vp8')
         done()
@@ -188,8 +176,7 @@ describe('GIF', function () {
         slug: 'o',
         format: 'mp4'
       }, function (err, _filename) {
-        if (err)
-          throw err
+        assert.ifError(err)
 
         filename = _filename
         done()
@@ -198,8 +185,7 @@ describe('GIF', function () {
 
     it('should have h264 encoding', function (done) {
       ffmeta(filename, function (metadata, err) {
-        if (err)
-          throw err
+        assert.ifError(err)
 
         metadata.video.codec.should.equal('h264')
         done()

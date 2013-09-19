@@ -1,7 +1,9 @@
 describe('CMYK', function () {
+  var image = path.join(__dirname, 'images', 'girls.jpg')
+
   var metadata = {
     name: 'cmyk' + rand,
-    path: path.join(__dirname, 'images', 'girls.jpg')
+    path: image
   }
 
   describe('PUT', function (done) {
@@ -26,8 +28,7 @@ describe('CMYK', function () {
         slug: 'a',
         format: 'jpg'
       }, function (err, _filename) {
-        if (err)
-          throw err
+        assert.ifError(err)
 
         filename = _filename
         done()
@@ -36,8 +37,7 @@ describe('CMYK', function () {
 
     it('should be sRGB', function (done) {
       gm(filename).identify(function (err, identity) {
-        if (err)
-          throw err
+        assert.ifError(err)
 
         identity.Colorspace.should.equal('sRGB')
         done()
@@ -62,8 +62,7 @@ describe('CMYK', function () {
         slug: 'l',
         format: 'jpg'
       }, function (err, _filename) {
-        if (err)
-          throw err
+        assert.ifError(err)
 
         filename = _filename
         done()
@@ -72,8 +71,7 @@ describe('CMYK', function () {
 
     it('should be original size because it did not shrink by 2x', function (done) {
       gm(filename).size(function (err, size) {
-        if (err)
-          throw err
+        assert.ifError(err)
 
         size.width.should.equal(metadata.width)
         size.height.should.equal(metadata.height)

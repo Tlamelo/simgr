@@ -1,14 +1,15 @@
 describe('JPEG', function () {
+  var image = path.join(__dirname, 'images', 'originalSideways.jpg')
+
   var metadata = {
     name: 'originalSideways' + rand,
-    path: path.join(__dirname, 'images', 'originalSideways.jpg')
+    path: image
   }
 
   describe('PUT', function () {
     it('should identify', function (done) {
       simgr.identifyImage(metadata, function (err) {
-        if (err)
-          throw err
+        assert.ifError(err)
 
         metadata.Format.should.equal('JPEG')
         metadata.format.should.equal('jpg')
@@ -33,7 +34,7 @@ describe('JPEG', function () {
     })
 
     it('should save the original', function () {
-      metadata.originalPath.should.equal(metadata.path.slice(0, -2))
+      metadata.originalPath.should.equal(image)
     })
   })
 
@@ -44,14 +45,12 @@ describe('JPEG', function () {
       simgr.getVariantFile(metadata, {
         slug: 'a'
       }, function (err, _filename) {
-        if (err)
-          throw err
+        assert.ifError(err)
 
         filename = _filename
 
         gm(filename).identify(function (err, identity) {
-          if (err)
-            throw err
+          assert.ifError(err)
 
           metadata['a.jpg'] = identity
 
@@ -62,8 +61,7 @@ describe('JPEG', function () {
 
     it('should get the signature', function (done) {
       simgr.getSignature(filename, function (err, signature) {
-        if (err)
-          throw err
+        assert.ifError(err)
 
         metadata['a.jpg'].Properties.signature.should.equal(signature)
         done()
@@ -101,12 +99,10 @@ describe('JPEG', function () {
         slug: 'a',
         format: 'png'
       }, function (err, filename) {
-        if (err)
-          throw err
+        assert.ifError(err)
 
         gm(filename).identify(function (err, identity) {
-          if (err)
-            throw err
+          assert.ifError(err)
 
           metadata['a.png'] = identity
           done()
@@ -139,9 +135,7 @@ describe('JPEG', function () {
         slug: 'a',
         format: 'gif'
       }, function (err) {
-        if (!err)
-          throw new Error()
-
+        assert.ok(err)
         done()
       })
     })
@@ -155,8 +149,7 @@ describe('JPEG', function () {
         slug: 'a',
         format: 'webp'
       }, function (err, location) {
-        if (err)
-          throw err
+        assert.ifError(err)
 
         filename = location
         fs.stat(location, done)
@@ -166,8 +159,7 @@ describe('JPEG', function () {
     // This test will fail on machines that do not support WebP in ImageMagick
     it('should be the correct size', function (done) {
       gm(filename).size(function (err, size) {
-        if (err)
-          throw err
+        assert.ifError(err)
 
         size.width.should.equal(120)
         size.height.should.equal(40)
@@ -182,17 +174,14 @@ describe('JPEG', function () {
       simgr.getVariantFile(metadata, {
         slug: 'o'
       }, function (err, _filename) {
-        if (err)
-          throw err
+        assert.ifError(err)
 
         filename = _filename
 
         gm(filename).identify(function (err, identity) {
-          if (err)
-            throw err
+          assert.ifError(err)
 
           metadata['a.jpg'] = identity
-
           done()
         })
       })

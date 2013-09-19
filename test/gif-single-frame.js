@@ -1,9 +1,9 @@
 describe('GIF SINGLE', function () {
-  var sunflower = path.join(__dirname, 'images', 'sunflower.gif')
+  var image = path.join(__dirname, 'images', 'sunflower.gif')
 
   var metadata = {
     name: 'sunflower' + rand,
-    path: sunflower
+    path: image
   }
 
   describe('PUT', function () {
@@ -17,13 +17,7 @@ describe('GIF SINGLE', function () {
     })
 
     it('should have the original', function () {
-      metadata.originalPath.should.equal(sunflower)
+      metadata.originalPath.should.equal(image)
     })
-
-    // Not necessarily true.
-    // I don't know enough about signatures.
-    // it('should have one signature', function () {
-    //   metadata.signatures.length.should.equal(1)
-    // })
   })
 })

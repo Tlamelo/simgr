@@ -1,7 +1,9 @@
 describe('LARGE', function () {
+  var image = path.join(__dirname, 'images', 'natalie.jpg')
+
   var metadata = {
     name: 'natalie' + rand,
-    path: path.join(__dirname, 'images', 'natalie.jpg')
+    path: image
   }
 
   describe('PUT', function () {

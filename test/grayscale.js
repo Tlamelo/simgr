@@ -1,19 +1,23 @@
 describe('Grayscale', function () {
+  var image = path.join(__dirname, 'images', 'justin.jpg')
+
   var metadata = {
     name: 'justin' + rand,
-    path: path.join(__dirname, 'images', 'justin.jpg')
+    path: image
   }
 
   describe('PUT', function (done) {
-    it('should work', function (done) {
+    it('should identify', function (done) {
       simgr.identifyImage(metadata, function (err) {
-        if (err)
-          throw err
+        assert.ifError(err)
 
         metadata.colorspace.should.equal('Gray')
-
-        simgr.uploadImage(metadata, done)
+        done()
       })
+    })
+
+    it('should upload', function (done) {
+      simgr.uploadImage(metadata, done)
     })
   })
 
@@ -25,22 +29,18 @@ describe('Grayscale', function () {
         slug: 'l',
         format: 'jpg'
       }, function (err, _filename) {
-        if (err)
-          throw err
+        assert.ifError(err)
 
         filename = _filename
-
         done()
       })
     })
 
     it('should still be grayscale', function (done) {
       gm(filename).identify(function (err, identity) {
-        if (err)
-          throw err
+        assert.ifError(err)
 
         identity.Colorspace.should.equal('Gray')
-
         done()
       })
     })

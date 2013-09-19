@@ -1,7 +1,9 @@
 describe('TIFF', function () {
+  var image = path.join(__dirname, 'images', 'tiff.tiff')
+
   var metadata = {
     name: 'tiff' + rand,
-    path: path.join(__dirname, 'images', 'tiff.tiff')
+    path: image
   }
 
   describe('PUT', function (done) {
@@ -24,12 +26,10 @@ describe('TIFF', function () {
         slug: 'l',
         format: 'tiff'
       }, function (err, filename) {
-        if (err)
-          throw err
+        assert.ifError(err)
 
         gm(filename).format(function (err, format) {
-          if (err)
-            throw err
+          assert.ifError(err)
 
           format.should.equal('PNG')
           done()
@@ -50,12 +50,10 @@ describe('TIFF', function () {
       simgr.getVariantFile(metadata, {
         slug: 'l'
       }, function (err, filename) {
-        if (err)
-          throw err
+        assert.ifError(err)
 
         gm(filename).format(function (err, format) {
-          if (err)
-            throw err
+          assert.ifError(err)
 
           format.should.equal('PNG')
           done()
