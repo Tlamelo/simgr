@@ -1,7 +1,9 @@
 describe('GIF', function () {
+  var image = path.join(__dirname, 'images', 'crazy-laugh.gif')
+
   var metadata = {
     name: 'crazy-laugh' + rand,
-    path: path.join(__dirname, 'images', 'crazy-laugh.gif')
+    path: image
   }
 
   describe('PUT', function () {
@@ -84,7 +86,7 @@ describe('GIF', function () {
   })
 
   describe('GET WEBP', function () {
-    var filename, headers, signatures
+    var headers
 
     it('should create a variant', function (done) {
       simgr.getVariantFile(metadata, {
@@ -94,9 +96,7 @@ describe('GIF', function () {
         if (err)
           throw err
 
-        filename = _filename
         headers = _headers
-        signatures = _signatures
         done()
       })
     })
@@ -107,10 +107,6 @@ describe('GIF', function () {
       headers['etag'].should.be.ok
       headers['last-modified'].should.be.ok
     })
-
-    // it('should be WEBP', function (done) {
-
-    // })
   })
 
   describe('GET GIF', function () {
@@ -130,7 +126,7 @@ describe('GIF', function () {
     })
 
     it('should be the same image', function (done) {
-      simgr.getHash(metadata.path, function (err, hash) {
+      simgr.getHash(image, function (err, hash) {
         if (err)
           throw err
 
