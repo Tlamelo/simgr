@@ -20,8 +20,8 @@ describe('WEBP', function () {
       metadata.originalPath.should.equal(image)
     })
 
-    it('should have two signatures', function () {
-      metadata.signatures.length.should.equal(2)
+    it('should have four signatures', function () {
+      metadata.signatures.length.should.equal(4)
     })
   })
 })

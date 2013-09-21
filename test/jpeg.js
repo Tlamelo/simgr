@@ -19,7 +19,7 @@ describe('JPEG', function () {
         metadata.width.should.be.ok
         metadata.height.should.be.ok
         metadata.pixels.should.be.ok
-        metadata.signatures.length.should.equal(2)
+        metadata.signatures.length.should.equal(4)
 
         done()
       })
