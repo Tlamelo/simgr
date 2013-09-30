@@ -83,7 +83,7 @@ describe('JPEG', function () {
     })
 
     it('should have 80 quality', function () {
-      parseInt(metadata['a.jpg'].Quality, 10).should.be.below(81)
+      parseInt(metadata['a.jpg'].Properties['jpeg:quality'], 10).should.be.below(81)
     })
 
     it('should auto orient', function () {
