@@ -19,6 +19,7 @@
   },
   "dependencies": {
     "save-to": "~0.0.3",
+    "hash-stream": "~0.0.1",
     "mmmagic": "~0.3.4",
     "knox": "~0.8.3",
     "array-series": "~0.1.0",
